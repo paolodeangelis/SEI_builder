@@ -33,7 +33,6 @@ jobs:
     - name: Show working folder
       run: |
           ls -l
-          ls -l lammps_wrapper
     - uses: wearerequired/lint-action@v1
       with:
         git_name: Autofix
@@ -56,13 +55,13 @@ jobs:
     # Checkout repository
     - name: Checkout repository
       uses: actions/checkout@v2
-    # Checkout submodules
-    - name: Checkout submodules
-      uses: actions/checkout@v2
-      with:
-        repository: DAP93/lammps_wrapper
-        token: ${{ secrets.ACCESS_TOKEN }}
-        path: lammps_wrapper
+    # # Checkout submodules
+    # - name: Checkout submodules
+    #   uses: actions/checkout@v2
+    #   with:
+    #     repository: DAP93/lammps_wrapper
+    #     token: ${{ secrets.ACCESS_TOKEN }}
+    #     path: lammps_wrapper
      # Checkout setup python env
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
@@ -93,12 +92,12 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
     # Checkout submodules
-    - name: Checkout submodules
-      uses: actions/checkout@v2
-      with:
-        repository: DAP93/lammps_wrapper
-        token: ${{ secrets.ACCESS_TOKEN }}
-        path: lammps_wrapper
+    # - name: Checkout submodules
+    #   uses: actions/checkout@v2
+    #   with:
+    #     repository: DAP93/lammps_wrapper
+    #     token: ${{ secrets.ACCESS_TOKEN }}
+    #     path: lammps_wrapper
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
