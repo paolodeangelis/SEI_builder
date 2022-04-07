@@ -1,0 +1,19 @@
+name: venv_sei
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.7
+  - ase~=3.20.1
+  - cython
+  - jupyter
+  - jupyterlab
+  - ipython
+  - matplotlib>=3.3.3
+  - numpy>=1.19
+  - scikit-learn~=0.22.2.post1
+  - scipy~=1.5.2
+  - pip:
+      - jupyter-bokeh~=3.0.0
+      - nglview
+      - MPInterfaces~=2020.6.19

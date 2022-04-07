@@ -1,0 +1,24 @@
+[tool.black]
+line-length = 120
+target-version = ['py36', 'py37', 'py38']
+experimental_string_processing = true
+
+[tool.isort]
+profile = 'black'
+
+[tool.flake8]
+max-line-length = 120
+max-complexity = 10
+per-file-ignores = "__init__.py:F401"
+
+[tool.nbqa.addopts]
+flake8 = [
+    "--max-line-length=120",
+    "--max-complexity=10"
+]
+isort = [
+    "--profile=black",
+]
+
+[tool.nbqa.dont_skip_bad_cells]
+black = true
