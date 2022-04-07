@@ -4,6 +4,7 @@ import signal
 from collections import deque
 from contextlib import contextmanager
 from datetime import datetime
+from typing import Tuple
 
 import numpy as np
 import pyscal.core as pc
@@ -11,6 +12,7 @@ from ase.atoms import Atoms
 from mpinterfaces import MP_API
 from mpinterfaces.nanoparticle import Nanoparticle
 from numpy.random import PCG64, Generator
+from pymatgen import Structure
 from pymatgen.ext.matproj import MPRester
 from pymatgen.io.ase import AseAtomsAdaptor
 from scipy.spatial import ConvexHull
@@ -53,17 +55,17 @@ matprj = MPRester(MP_API)  # Material Project API KEY
 matget2ase = AseAtomsAdaptor()
 
 
-def get_stable_crystal(chem_formula: str):
-    """Download from `Mterials Project` the cristal file for a given chemical formula.
-    If in the database are present metastables cofiguration the one with the
-    "minimum formation energy per atom" is choose.
+def get_stable_crystal(chem_formula: str) -> Tuple[Atoms, Structure]:
+    """Download from `Materials Project` the cristal file for a given chemical formula.
+    If in the database are present metastables configuration, the one with the
+    "minimum formation energy per atom" is chosen.
 
     Args:
         chem_formula (str): Cristal chemical formula (e.g. LiF)
 
     Returns:
-        structure ()
-
+        structure (Strcuture): crystal unit as pymatgen object
+        structure_ase (Atoms): crystal unit as ASE object
     """
     mat = matprj.get_materials_ids(chem_formula)
     mat = np.array(mat)
@@ -83,28 +85,28 @@ def get_stable_crystal(chem_formula: str):
 # Compute Volume from point cluster
 
 
-def tetrahedron_volume(a, b, c, d):
+def _tetrahedron_volume(a: np.ndarray, b: np.ndarray, c: np.ndarray, d: np.ndarray) -> float:
     return np.abs(np.einsum("ij,ij->i", a - d, np.cross(b - d, c - d))) / 6
 
 
-def convex_hull_volume(pts):
+def _convex_hull_volume(pts: np.ndarray) -> float:
     ch = ConvexHull(pts)
     simplices = np.column_stack((np.repeat(ch.vertices[0], ch.nsimplex), ch.simplices))
     tets = ch.points[simplices]
-    return np.sum(tetrahedron_volume(tets[:, 0], tets[:, 1], tets[:, 2], tets[:, 3]))
+    return np.sum(_tetrahedron_volume(tets[:, 0], tets[:, 1], tets[:, 2], tets[:, 3]))
 
 
 # Grain (Nanoparticle) costructor
 
 
-def raise_timeout(signum, frame):
+def _raise_timeout(signum, frame):
     raise TimeoutError
 
 
 @contextmanager
-def timeout_contex(time):
+def _timeout_contex(time):
     # Register a function to raise a TimeoutError on the signal.
-    signal.signal(signal.SIGALRM, raise_timeout)
+    signal.signal(signal.SIGALRM, _raise_timeout)
     # Schedule the signal to be sent after ``time``.
     signal.alarm(time)
 
@@ -124,13 +126,13 @@ def from_d_to_grain(d, generator, surfaces, surface_energies, maxiter=20, verbos
     d_i = [0, 0]
     i = 0
 
-    with timeout_contex(timeout):
+    with _timeout_contex(timeout):
         while i < maxiter:
             # generate cluster
             grain = Nanoparticle(generator, rmax=rmax_i[1], hkl_family=surfaces, surface_energies=surface_energies)
             grain.create()
             grain = matget2ase.get_atoms(grain)
-            vol = convex_hull_volume(grain.positions)
+            vol = _convex_hull_volume(grain.positions)
             d_i[1] = np.power(vol * 6 / np.pi, 1 / 3)
             N = grain.positions.shape[0]
             if verbose >= 2:
@@ -361,7 +363,9 @@ def compute_score_steinhardt(system):
     return score
 
 
-def get_bulk_atoms(cluster, strategy="coordination", method="cutoff", threshold=0.6, cutoff=5.0, **kwarg):
+def get_bulk_atoms(
+    cluster, strategy="coordination", method="cutoff", threshold=0.6, cutoff=5.0, **kwarg
+):  # TODO Get rid of pyscal
     """
     **kwarg see pyscal.core.System.find_neighbors
     """

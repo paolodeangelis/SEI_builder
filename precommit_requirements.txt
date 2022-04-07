@@ -1,8 +1,0 @@
-pre-commit
-black
-isort
-flake8
-flake8-docstrings
-flake8-builtins
-pyupgrade
-black[jupyter]
