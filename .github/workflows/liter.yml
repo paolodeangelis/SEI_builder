@@ -1,0 +1,131 @@
+name: Liter
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+#  push:
+#    branches: [ main ]
+#  pull_request:
+#    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "python-lint"
+  # MORE INFO https://www.youtube.com/watch?v=oi94qEvi9Qo
+
+  python-lint-autofix:
+    runs-on: ubuntu-latest
+    steps:
+    # Checkout repository
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    # Checkout setup python env
+    - uses: actions/setup-python@v2
+    - name: Install Python dependencies
+      run: |
+          python -m pip install --upgrade pip
+          pip3 install cython
+          pip3 install -r requirements.txt
+          pip3 install black flake8 mypy black[jupyter]
+    - name: Show working folder
+      run: |
+          ls -l
+          ls -l lammps_wrapper
+    - uses: wearerequired/lint-action@v1
+      with:
+        git_name: Autofix
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        black: true
+        mypy: true
+        flake8: true  # NB auto_fix not yet supported
+        auto_fix: true
+
+  python-lint-precomit:
+    strategy:
+      matrix:
+        python-version:
+          - 3.6
+          - 3.7
+          - 3.8
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    steps:
+    # Checkout repository
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    # Checkout submodules
+    - name: Checkout submodules
+      uses: actions/checkout@v2
+      with:
+        repository: DAP93/lammps_wrapper
+        token: ${{ secrets.ACCESS_TOKEN }}
+        path: lammps_wrapper
+     # Checkout setup python env
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install pre-commit
+        python -m pip install -r precommit_requirements.txt
+    - name: Run pre-commit hooks
+      run: |
+        pre-commit install
+        pre-commit run -a
+
+
+  jupyter-lint:
+    strategy:
+      matrix:
+        python-version:
+          - 3.6
+          - 3.7
+          - 3.8
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    steps:
+    # Checkout repository
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    # Checkout submodules
+    - name: Checkout submodules
+      uses: actions/checkout@v2
+      with:
+        repository: DAP93/lammps_wrapper
+        token: ${{ secrets.ACCESS_TOKEN }}
+        path: lammps_wrapper
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: install dependecy
+      run: |
+        python -m pip install --upgrade pip
+        pip3 install cython
+        pip3 install -r requirements.txt
+    - name: install nbQA
+      run: pip install nbqa black flake8 mypy isort
+
+    - name: nbQA black report
+      continue-on-error: true
+      run: |
+        for f in $(ls *.ipynb); do nbqa black $f ; done
+
+    - name: nbQA flake8 report
+      continue-on-error: true
+      run: |
+        for f in $(ls *.ipynb); do nbqa flake8 $f ; done
+
+    - name: nbQA isort report
+      continue-on-error: true
+      run: |
+        for f in $(ls *.ipynb); do nbqa isort $f ; done
+
+    - name: nbQA mypy report
+      run: |
+        for f in $(ls *.ipynb); do nbqa mypy --ignore-missing-imports  $f ; done
