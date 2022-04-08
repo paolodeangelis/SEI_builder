@@ -1,0 +1,16 @@
+my-big-map-app:
+  metadata:
+    title: SEI Builder
+    description: |
+        #TODO
+    authors: P. De Angelis, R. Cappabianca, E. Chiavazzo
+    external_url: #TODO
+    documentation_url: #TODO
+    logo: #TODO
+    state: development
+    version: '0.1'
+  categories:
+    - technology-ase
+    - classical
+    - wp3
+  git_url: # TODO
