@@ -1,3 +1,8 @@
+"""This is the SEI builder functions module.
+
+It contains functions for getting SEI's salts crystal unit cells, building grains,
+and identifying the atoms at the boundary.
+"""
 import copy
 import re
 import signal
@@ -56,7 +61,9 @@ matget2ase = AseAtomsAdaptor()
 
 
 def get_stable_crystal(chem_formula: str) -> Tuple[Atoms, Structure]:
-    """Download from `Materials Project` the cristal file for a given chemical formula.
+    """Get the stable crystal unit-cell from its chemical formula.
+
+    Download from `Materials Project` the cristal file for a given chemical formula.
     If in the database are present metastables configuration, the one with the
     "minimum formation energy per atom" is chosen.
 
@@ -133,7 +140,9 @@ def from_d_to_grain(
     tol: float = 0.05,
     timeout: int = 60,
 ) -> Tuple[int, float, float, float, Atoms]:  # TODO docstring
-    """_summary_
+    """_summary_ .
+
+    _description_.
 
     Args:
         d (np.ndarray): _description_
@@ -221,7 +230,27 @@ def random_sei_grains(
     surfaces_all=[(1, 0, 0), (1, 1, 0), (1, 1, 1)],
     n_surfaces=2,
     seed=42,
-):
+):  # TODO `random_sei_grains` docstring
+    """_summary_ .
+
+    _description_.
+
+    Args:
+        Natoms (_type_): _description_
+        species_fractions (_type_): _description_
+        molecules_in_unit_cell (_type_): _description_
+        random_sampler (_type_): _description_
+        species (_type_): _description_
+        species_fraction_tol (float, optional): _description_. Defaults to 0.005.
+        Ngrains_max (_type_, optional): _description_. Defaults to None.
+        report (strorNone, optional): _description_. Defaults to "report_grains_sei.csv".
+        surfaces_all (list, optional): _description_. Defaults to [(1, 0, 0), (1, 1, 0), (1, 1, 1)].
+        n_surfaces (int, optional): _description_. Defaults to 2.
+        seed (int, optional): _description_. Defaults to 42.
+
+    Returns:
+        _type_: _description_
+    """
     if Ngrains_max is None:
         Ngrains_max = Natoms // 10
 
@@ -376,14 +405,14 @@ def _minmax_rescale(array):
     return (array - array.min()) / (array.max() - array.min())
 
 
-def compute_score_coordination(system):
+def _compute_score_coordination(system):
     atoms = system.atoms
     score = np.array([atom.coordination for atom in atoms])
     score = _minmax_rescale(score)
     return score
 
 
-def compute_score_steinhardt(system):
+def _compute_score_steinhardt(system):
     system.calculate_q([6])
     score = np.array(system.get_qvals(6))
     score = 1 - _minmax_rescale(score)
@@ -393,8 +422,22 @@ def compute_score_steinhardt(system):
 def get_bulk_atoms(
     cluster, strategy="coordination", method="cutoff", threshold=0.6, cutoff=5.0, **kwarg
 ):  # TODO Get rid of pyscal
-    """
-    **kwarg see pyscal.core.System.find_neighbors
+    """_summary_ .
+
+    _description_.
+
+    Args:
+        cluster (_type_): _description_
+        strategy (str, optional): _description_. Defaults to "coordination".
+        method (str, optional): _description_. Defaults to "cutoff".
+        threshold (float, optional): _description_. Defaults to 0.6.
+        cutoff (float, optional): _description_. Defaults to 5.0.
+
+    Raises:
+        ValueError: _description_
+
+    Returns:
+        _type_: _description_
     """
     temp_ase = copy.deepcopy(cluster)
     temp = pc.System()
@@ -406,16 +449,16 @@ def get_bulk_atoms(
     temp.find_neighbors(method=method, cutoff=cutoff, **kwarg)
     # Get score
     if strategy.lower() == "coordination":
-        score = compute_score_coordination(temp)
+        score = _compute_score_coordination(temp)
     elif strategy.lower() == "steinhardt":
-        score = compute_score_steinhardt(temp)
+        score = _compute_score_steinhardt(temp)
     else:
         raise ValueError(f"{strategy} is not a valid strategy.")
     bulk_atoms = score > threshold
     return bulk_atoms, score
 
 
-def find_nearest(arr, value):
+def _find_nearest(arr, value):
     diff = np.absolute(arr - value)
     index = int(diff.argmin())
     return index
