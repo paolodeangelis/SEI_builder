@@ -60,7 +60,7 @@ A set of Jupyter notebooks to build and study battery aging.
 <p align="center">
     <a target="_blank" href="http://img.shields.io/badge/DOI-to%20define-blue.svg"><img
 		alt="DOI"
-		src="http://img.shields.io/badge/DOI-To%20Be%20Define-blue.svg">
+		src="http://img.shields.io/badge/DOI-to%20be%20define-blue.svg">
     </a>
 </p>
 
