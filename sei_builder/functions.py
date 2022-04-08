@@ -64,8 +64,11 @@ def get_stable_crystal(chem_formula: str) -> Tuple[Atoms, Structure]:
         chem_formula (str): Cristal chemical formula (e.g. LiF)
 
     Returns:
-        structure (Strcuture): crystal unit as pymatgen object
-        structure_ase (Atoms): crystal unit as ASE object
+        (tuple): tuple containing:
+            -  Strcuture:
+               crystal unit as pymatgen object
+            -  Atoms:
+               crystal unit as ASE object
     """
     mat = matprj.get_materials_ids(chem_formula)
     mat = np.array(mat)
@@ -120,8 +123,32 @@ def _timeout_contex(time):
         signal.signal(signal.SIGALRM, signal.SIG_IGN)
 
 
-def from_d_to_grain(d, generator, surfaces, surface_energies, maxiter=20, verbose=False, tol=0.05, timeout=60):
-    # vol = np.power(d, 3) * np.pi /6
+def from_d_to_grain(
+    d: np.ndarray,
+    generator: np.random.Generator,
+    surfaces: list,
+    surface_energies: list,
+    maxiter: int = 20,
+    verbose: bool = False,
+    tol: float = 0.05,
+    timeout: int = 60,
+) -> Tuple[int, float, float, float, Atoms]:  # TODO docstring
+    """_summary_
+
+    Args:
+        d (np.ndarray): _description_
+        generator (np.random.Generator): _description_
+        surfaces (list): _description_
+        surface_energies (list): _description_
+        maxiter (int, optional): _description_. Defaults to 20.
+        verbose (bool, optional): _description_. Defaults to False.
+        tol (float, optional): _description_. Defaults to 0.05.
+        timeout (int, optional): _description_. Defaults to 60.
+
+    Returns:
+        (tuple): tuple containing:
+            Tuple[int, float, float, float, Atoms]: _description_
+    """
     rmax_i = [d / 2, d / 2]
     d_i = [0, 0]
     i = 0
@@ -176,7 +203,7 @@ def from_d_to_grain(d, generator, surfaces, surface_energies, maxiter=20, verbos
     return N, vol, d_i[1], rmax_i[1], grain
 
 
-def get_gcd_pedices(formula):
+def _get_gcd_pedices(formula):
     pedices = re.findall("[0-9]+", formula)
     pedices = [int(i) for i in pedices]
     return np.gcd.reduce(pedices)
@@ -345,21 +372,21 @@ def random_sei_grains(
 # coordination number
 
 
-def normalization_min_max(array):
+def _minmax_rescale(array):
     return (array - array.min()) / (array.max() - array.min())
 
 
 def compute_score_coordination(system):
     atoms = system.atoms
     score = np.array([atom.coordination for atom in atoms])
-    score = normalization_min_max(score)
+    score = _minmax_rescale(score)
     return score
 
 
 def compute_score_steinhardt(system):
     system.calculate_q([6])
     score = np.array(system.get_qvals(6))
-    score = 1 - normalization_min_max(score)
+    score = 1 - _minmax_rescale(score)
     return score
 
 

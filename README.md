@@ -25,8 +25,8 @@ A set of Jupyter notebooks to build and study battery aging.
         alt="Jupyter friendly" />
     </a>
     <a target="_blank" href="/LICENSE"><img
-        src="https://img.shields.io/badge/license-MIT-green"
-        alt="License - MIT" />
+        src="https://img.shields.io/badge/license-GNU%20AGPLv3-green"
+        alt="License - GNU AGPLv3" />
     </a>
     <a target="_blank" href="https://www.linux.org/"><img
         src="https://img.shields.io/badge/OS-Linux-lightgray?logo=linux&amp;logoColor=white"

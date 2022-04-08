@@ -1,4 +1,4 @@
 {
     "esbonio.sphinx.buildDir": "${workspaceRoot}/docs/build",
-    "esbonio.sphinx.confDir": "${workspaceRoot}/docs/source"
+    "esbonio.sphinx.confDir": "${workspaceFolder}/docs/source"
 }
