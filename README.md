@@ -55,6 +55,10 @@ A set of Jupyter notebooks to build and study battery aging.
         src="https://results.pre-commit.ci/badge/github/DAP93/SEI_builder/main.svg?badge_token=zRcWs0cGTEaB1hO3Co5J9g"
         alt="pre-commit.ci status" />
     </a>
+    <a target="_blank" href="https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=paolodeangelis/SEI_builder&amp;utm_campaign=Badge_Grade"><img
+        src="https://app.codacy.com/project/badge/Grade/7c4a93b7223e491a8d48322ba0ee8d04"
+        alt="codacy" />
+    </a>
 </p>
 
 <p align="center">
@@ -234,7 +238,7 @@ Access to [Material Project](https://materialsproject.org/) and follow the istru
 1. Run the script replacing `<MATERIAL_PROJECT_KEY>` with the API key got in the [previus step](#configure-mpinterface).
 
 ```console
-python3 mpinterfaces_setup.py -k <MATERIAL_PROJECT_KEY>`
+python3 mpinterfaces_setup.py -k <MATERIAL_PROJECT_KEY>
 ```
 
 ## 🚀 Usage

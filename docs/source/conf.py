@@ -17,7 +17,7 @@ import sys
 sys.path.insert(0, os.path.abspath("."))
 sys.path.insert(0, os.path.abspath(".."))
 sys.path.insert(0, os.path.abspath("../.."))
-
+from seibuilder import __version__  # noqa: E402
 
 # -- Project information -----------------------------------------------------
 
@@ -26,7 +26,7 @@ copyright = "2022, SMaLL Team"  # noqa: A001
 author = "SMaLL Team"
 
 # The full version, including alpha/beta/rc tags
-release = "latest"
+release = __version__
 
 
 # -- General configuration ---------------------------------------------------
@@ -34,13 +34,34 @@ release = "latest"
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ["sphinx.ext.autodoc", "sphinx.ext.viewcode", "sphinx.ext.napoleon"]
+extensions = [
+    "sphinx.ext.autodoc",
+    "sphinx.ext.viewcode",
+    "sphinx.ext.napoleon",
+    "sphinxcontrib.bibtex",
+    "sphinx_tabs.tabs",
+    "sphinx.ext.viewcode",
+    "sphinx.ext.mathjax",
+    "sphinx_copybutton",
+]
+
+# bibtex
+bibtex_bibfiles = ["refs.bib"]
+bibtex_encoding = "utf-8-sig"
+bibtex_default_style = "unsrt"
+bibtex_reference_style = "label"
+
 
 ipython_mplbackend = ""
 
 copybutton_selector = "div:not(.no-copy)>div.highlight pre"
-copybutton_prompt_text = ">>> |\\\\$ |In \\\\[\\\\d+\\\\]: |\\\\s+\\.\\.\\.: "
+copybutton_prompt_text = r">>> |\.\.\. |\$ |In \[\d*\]: | {2,5}\.\.\.: | {5,8}: |\(venv_sei\)$ "
+# copybutton_prompt_text = '>>> |\\\\$ |In \\\\[\\\\d+\\\\]: |\\\\s+\\.\\.\\.: '
 copybutton_prompt_is_regexp = True
+# copybutton_only_copy_prompt_lines = True
+# copybutton_image_path = 'copy-button-yellow.svg'
+# copybutton_remove_prompts = True
+
 
 todo_include_todos = True
 
@@ -72,3 +93,5 @@ numfig = True
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
+# The master toctree document.
+master_doc = "index"

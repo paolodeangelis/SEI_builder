@@ -17,3 +17,5 @@ dependencies:
       - jupyter-bokeh~=3.0.0
       - nglview
       - MPInterfaces~=2020.6.19
+
+# TODO update dependecies

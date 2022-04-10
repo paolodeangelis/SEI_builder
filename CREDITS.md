@@ -6,10 +6,10 @@
 | Roberta Cappabianca    | [roberta.cappabianca@polito.it](mailto:roberta.cappabianca@polito.it) | 👨‍🎓 🐛✔
 
 ---
-### Legend
-* ⭐ Repo Maintainer
-* 👨‍🏫 Professor
-* 👨‍🎓 Student
-* ✍ Documentation Writer
-* 🐛 Bug fixer
-* ✔ Reviewer
+## Legend
+*  ⭐ Repo Maintainer
+*  👨‍🏫 Professor
+*  👨‍🎓 Student
+*  ✍ Documentation Writer
+*  🐛 Bug fixer
+*  ✔ Reviewer

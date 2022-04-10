@@ -1,12 +1,10 @@
-ase
-cython
+ase # TODO Fix version of all requiremnts
 jupyter
-jupyterlab~=3.0
+jupyterlab==3.3.2
 jupyter-bokeh
-ipython
 matplotlib>=3.3.3
-MPInterfaces
-pymatgen<=v2019.10.16
+# MPInterfaces # TODO Get rid of MPInterfaces
+pymatgen==2019.10.16
 nglview
 numpy>=1.19
 scikit-learn~=0.22.2.post1
