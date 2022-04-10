@@ -77,17 +77,19 @@ merging because the individual PR iterations are not important to understanding
 the evolution of the codebase in master, and create a lot of noise in the
 commit history.
 
-13 . If you need a deeper explenation of check the step-by-step tutorial [How to contribute on Github](https://www.dataschool.io/how-to-contribute-on-github/)
-
+13 . If you need a deeper explenation of check the step-by-step tutorial
+[How to contribute on Github](https://www.dataschool.io/how-to-contribute-on-github/)
 
 ## How pre-commit
 
 ### What it is `pre-commit`?
 
 Pre-commit hooks are a mechanism of the version control system git.
-They let you execute code right before the commit performing some checking on you changes.
+They let you execute code right before the commit performing some
+checking on you changes.
 
-Besicaly force lazy developers to control his code to avoid stupid typos or style mistakes.
+Besicaly force lazy developers to control his code to avoid stupid
+ typos or style mistakes.
 
 <p align="center">
  <img
@@ -98,7 +100,9 @@ Besicaly force lazy developers to control his code to avoid stupid typos or styl
 
 ### Why I should use `pre-commit`?
 
-When you are coding it is esay following your own "style" and "logic" and some time this can result in a chaotic and hard to read code (i.e. *a Spaghetti code*).
+When you are coding it is esay following your own "style" and "logic"
+ and some time this can result in a chaotic and hard to read code
+ (i.e. *a Spaghetti code*).
 Thus, with `pre-commit` we are trying to basically avoid the situation below:
 
 <p align="center">
@@ -110,14 +114,17 @@ Thus, with `pre-commit` we are trying to basically avoid the situation below:
 
 ### How to use `pre-commit`
 
-In the repository there is all the configuration files (`.pre-commit-config.yaml`) the only thing to do is to:
+In the repository there is all the configuration files
+(`.pre-commit-config.yaml`) the only thing to do is to:
 
 1 . Install thought pip
+
 ```bash
 pip install pre-commit
 ```
 
 2 . Activate it to run before `git commit`
+
 ```bash
 pre-commit install
 ```
@@ -131,12 +138,15 @@ pre-commit run
 >⚠️HOW TO SKIP IT
 >
 > To commit without running the `pre-commiting`
+>
 > ```bash
 > git commit --no-verify
 > ```
-> However will fail on the remote repository because the "Continue Integration" workflow which check all at every push and pull
+>
+> However will fail on the remote repository because the "Continue Integration"
+> workflow which check all at every push and pull
 
-**Hooks list:**
+#### Hooks list:
 
 | Hook | auto-fix |
 | :---: | :---: |
@@ -148,5 +158,5 @@ pre-commit run
 | [nbQA](https://github.com/nbQA-dev/nbQA) | ✅ and ❌ |
 | [flake8](https://gitlab.com/pycqa/flake8) | ❌ |
 
->NB: that many of the hook can "auto-fix" your code, thus if stop try to re-run `git commit`
->and the hook will pass successfully!
+>NB: that many of the hook can "auto-fix" your code, thus if stop try to
+>re-run `git commit` and the hook will pass successfully!
