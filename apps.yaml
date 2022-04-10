@@ -2,7 +2,7 @@ my-big-map-app:
   metadata:
     title: SEI Builder
     description: |
-        #TODO
+        This app is an ASE-base workflow used to reproduce a rational initial SEI morphology at the atomic scale by stochastically placing the crystal grains of the inorganic salts formed during the SEI's reaction.
     authors: P. De Angelis, R. Cappabianca, E. Chiavazzo
     external_url: #TODO
     documentation_url: #TODO
