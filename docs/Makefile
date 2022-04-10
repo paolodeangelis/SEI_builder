@@ -18,3 +18,9 @@ help:
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
 %: Makefile
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+
+# at additiona BUILD API istructions
+buildapi:
+	sphinx-apidoc -fMeT -o source/pages/api/ ../seibuilder ../seibuilder/mpinterfaces
+	@echo "Auto-generation of API documentation finished. " \
+		"The generated files are in 'api/'"
