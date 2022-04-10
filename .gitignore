@@ -130,3 +130,7 @@ dmypy.json
 
 # Img
 *.ai
+
+# additiona
+/packmol
+seibuilder/mpinterfaces/mpint_config.yaml

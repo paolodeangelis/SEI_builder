@@ -3,14 +3,17 @@
 
 import argparse
 import os
+import sys
 import warnings
+
+sys.path.insert(0, os.path.abspath("."))
 
 
 def load_mpinterfaces():  # noqa: D103
     print("[I]: Loading mpinteface (may take a  while)")
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
-        from mpinterfaces import PACKAGE_PATH
+        from seibuilder.mpinterfaces import PACKAGE_PATH
     global MPINT_CONFIG_YAML
     MPINT_CONFIG_YAML = os.path.join(PACKAGE_PATH, "mpint_config.yaml")
 
