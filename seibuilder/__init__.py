@@ -1,5 +1,4 @@
-"""
-SEI Builder package with fuctions used in the jupyter."""
+"""SEI Builder package with fuctions used in the jupyter."""
 
 from .functions import (  # get_bulk_atoms, # TODO fix get_bulk_atoms
     _find_nearest,
