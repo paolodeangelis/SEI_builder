@@ -1,9 +1,10 @@
-"""This is the SEI builder functions module.
+"""
+This is the SEI builder functions module.
 
 It contains functions for getting SEI's salts crystal unit cells, building grains,
 and identifying the atoms at the boundary.
 """
-import copy
+import copy  # noqa F401
 import re
 import signal
 from collections import deque
@@ -12,21 +13,24 @@ from datetime import datetime
 from typing import Tuple
 
 import numpy as np
-import pyscal.core as pc
+
+# import pyscal.core as pc # TODO remobe pyscal
 from ase.atoms import Atoms
-from mpinterfaces import MP_API
-from mpinterfaces.nanoparticle import Nanoparticle
 from numpy.random import PCG64, Generator
 from pymatgen import Structure
 from pymatgen.ext.matproj import MPRester
 from pymatgen.io.ase import AseAtomsAdaptor
 from scipy.spatial import ConvexHull
 
+from .mpinterfaces import MP_API
+from .mpinterfaces.nanoparticle import Nanoparticle
+
 TIME_FORMAT = "%H:%M:%S %Z"
 
 
 def message(msg: str, msg_type: str = "info", add_date: bool = False, **kwargs) -> None:
-    """Print on screen useful messages.
+    """
+    Print on screen useful messages.
 
     Args:
         msg (str): message to print
@@ -61,7 +65,8 @@ matget2ase = AseAtomsAdaptor()
 
 
 def get_stable_crystal(chem_formula: str) -> Tuple[Atoms, Structure]:
-    """Get the stable crystal unit-cell from its chemical formula.
+    """
+    Get the stable crystal unit-cell from its chemical formula.
 
     Download from `Materials Project` the cristal file for a given chemical formula.
     If in the database are present metastables configuration, the one with the
@@ -140,7 +145,8 @@ def from_d_to_grain(
     tol: float = 0.05,
     timeout: int = 60,
 ) -> Tuple[int, float, float, float, Atoms]:  # TODO docstring
-    """_summary_ .
+    """
+    _summary_ .
 
     _description_.
 
@@ -419,43 +425,44 @@ def _compute_score_steinhardt(system):
     return score
 
 
-def get_bulk_atoms(
-    cluster, strategy="coordination", method="cutoff", threshold=0.6, cutoff=5.0, **kwarg
-):  # TODO Get rid of pyscal
-    """_summary_ .
+# TODO Get rid of pyscal
+# def get_bulk_atoms(
+#     cluster, strategy="coordination", method="cutoff", threshold=0.6, cutoff=5.0, **kwarg
+# ):
+#     """_summary_ .
 
-    _description_.
+#     _description_.
 
-    Args:
-        cluster (_type_): _description_
-        strategy (str, optional): _description_. Defaults to "coordination".
-        method (str, optional): _description_. Defaults to "cutoff".
-        threshold (float, optional): _description_. Defaults to 0.6.
-        cutoff (float, optional): _description_. Defaults to 5.0.
+#     Args:
+#         cluster (_type_): _description_
+#         strategy (str, optional): _description_. Defaults to "coordination".
+#         method (str, optional): _description_. Defaults to "cutoff".
+#         threshold (float, optional): _description_. Defaults to 0.6.
+#         cutoff (float, optional): _description_. Defaults to 5.0.
 
-    Raises:
-        ValueError: _description_
+#     Raises:
+#         ValueError: _description_
 
-    Returns:
-        _type_: _description_
-    """
-    temp_ase = copy.deepcopy(cluster)
-    temp = pc.System()
-    # Convert to pystacal.core.System
-    if np.all(temp_ase.get_cell() == 0):
-        temp_ase.set_cell([1e99, 1e99, 1e99])
-    temp.read_inputfile(temp_ase, format="ase")
-    # Get neighbors
-    temp.find_neighbors(method=method, cutoff=cutoff, **kwarg)
-    # Get score
-    if strategy.lower() == "coordination":
-        score = _compute_score_coordination(temp)
-    elif strategy.lower() == "steinhardt":
-        score = _compute_score_steinhardt(temp)
-    else:
-        raise ValueError(f"{strategy} is not a valid strategy.")
-    bulk_atoms = score > threshold
-    return bulk_atoms, score
+#     Returns:
+#         _type_: _description_
+#     """
+#     temp_ase = copy.deepcopy(cluster)
+#     temp = pc.System()
+#     # Convert to pystacal.core.System
+#     if np.all(temp_ase.get_cell() == 0):
+#         temp_ase.set_cell([1e99, 1e99, 1e99])
+#     temp.read_inputfile(temp_ase, format="ase")
+#     # Get neighbors
+#     temp.find_neighbors(method=method, cutoff=cutoff, **kwarg)
+#     # Get score
+#     if strategy.lower() == "coordination":
+#         score = _compute_score_coordination(temp)
+#     elif strategy.lower() == "steinhardt":
+#         score = _compute_score_steinhardt(temp)
+#     else:
+#         raise ValueError(f"{strategy} is not a valid strategy.")
+#     bulk_atoms = score > threshold
+#     return bulk_atoms, score
 
 
 def _find_nearest(arr, value):
