@@ -7,6 +7,7 @@ import sys
 import warnings
 
 sys.path.insert(0, os.path.abspath("."))
+MPINT_CONFIG_YAML = None
 
 
 def load_mpinterfaces():  # noqa: D103
