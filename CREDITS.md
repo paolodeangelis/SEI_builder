@@ -1,4 +1,3 @@
-
 # CREDITS
 
 | Name | Mail | Tasks |
@@ -10,9 +9,9 @@
 
 ## Legend
 
-  * ⭐ Repo Maintainer
-  * 👨‍🏫 Professor
-  * 👨‍🎓 Student
-  * ✍ Documentation Writer
-  * 🐛 Bug fixer
-  * ✔ Reviewer
+* ⭐ Repo Maintainer
+* 👨‍🏫 Professor
+* 👨‍🎓 Student
+* ✍ Documentation Writer
+* 🐛 Bug fixer
+* ✔ Reviewer

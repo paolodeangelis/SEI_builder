@@ -8,7 +8,7 @@ my-big-map-app:
     documentation_url: #TODO
     logo: #TODO
     state: development
-    version: '0.1'
+    version: '0.1.dev'
   categories:
     - technology-ase
     - classical

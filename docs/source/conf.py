@@ -36,14 +36,18 @@ release = __version__
 # ones.
 extensions = [
     "sphinx.ext.autodoc",
-    "sphinx.ext.viewcode",
+    "sphinx.ext.linkcode",
     "sphinx.ext.napoleon",
     "sphinxcontrib.bibtex",
     "sphinx_tabs.tabs",
-    "sphinx.ext.viewcode",
     "sphinx.ext.mathjax",
     "sphinx_copybutton",
 ]
+
+# If true, the current module name will be prepended to all description
+# unit titles (such as .. function::).
+add_module_names = False
+
 
 # bibtex
 bibtex_bibfiles = ["refs.bib"]
@@ -95,3 +99,36 @@ numfig = True
 html_static_path = ["_static"]
 # The master toctree document.
 master_doc = "index"
+
+
+# Resolve function for the linkcode extension.
+# Thanks to https://github.com/Lasagne/Lasagne/blob/master/docs/conf.py
+def linkcode_resolve(domain, info):  # noqa: D103
+    def find_source():
+        # try to find the file and line number, based on code from numpy:
+        # https://github.com/numpy/numpy/blob/master/doc/source/conf.py#L286
+        obj = sys.modules[info["module"]]
+        for part in info["fullname"].split("."):
+            obj = getattr(obj, part)
+        import inspect
+        import os
+
+        fn = inspect.getsourcefile(obj)
+        fn = os.path.relpath(fn, start=os.path.dirname(__file__))
+        source, lineno = inspect.getsourcelines(obj)
+        return fn, lineno, lineno + len(source) - 1
+
+    if domain != "py" or not info["module"]:
+        return None
+
+    try:
+        rel_path, line_start, line_end = find_source()
+        # __file__ is imported from pymatgen.core
+        filename = f"seibuilder/{rel_path}#L{line_start}-L{line_end}"
+    except:  # noqa: E722
+        # no need to be relative to core here as module includes full path.
+        filename = info["module"].replace(".", "/") + ".py"
+
+    # tag = "v" + __version__
+    tag = "main"
+    return f"https://github.com/paolodeangelis/SEI_builder/blob/{tag}/{filename}"

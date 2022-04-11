@@ -134,3 +134,5 @@ dmypy.json
 # additiona
 /packmol
 seibuilder/mpinterfaces/mpint_config.yaml
+/.vscode
+.vscode

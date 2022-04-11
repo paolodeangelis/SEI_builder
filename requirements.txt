@@ -1,11 +1,11 @@
 ase # TODO Fix version of all requiremnts
-jupyter
-jupyterlab==3.3.2
-jupyter-bokeh
-matplotlib>=3.3.3
+jupyter==1.0.0
+jupyterlab==3.2.8
+jupyter-bokeh==3.0.4
+matplotlib==3.3.1
 # MPInterfaces # TODO Get rid of MPInterfaces
-pymatgen==2019.10.16
-nglview
-numpy>=1.19
+numpy==1.19.5
+pymatgen==2019.5.28
+nglview==3.0.3
 scikit-learn~=0.22.2.post1
 scipy~=1.5.2

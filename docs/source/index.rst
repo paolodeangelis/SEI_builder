@@ -99,6 +99,7 @@ If you use the SEI Builder for your work, please cite this repository:
    :caption: Getting Started
 
    ./pages/installation/*
+   ./pages/usage/*
 
 
 .. toctree::
