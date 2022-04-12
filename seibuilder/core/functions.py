@@ -4,7 +4,6 @@ This is the SEI builder functions module.
 It contains functions for getting SEI's salts crystal unit cells, building grains,
 and identifying the atoms at the boundary.
 """
-import copy  # noqa F401
 import re
 import signal
 from collections import deque
@@ -185,7 +184,15 @@ def from_d_to_grain(
     return N, vol, d_i[1], rmax_i[1], grain
 
 
-def _get_gcd_pedices(formula):
+def get_gcd_pedices(formula: str) -> int:
+    """Get the greatest common divisor (GCD) from number of each atom type in a empirical chemical formula.
+
+    Args:
+        formula (str): empirical chemical formula (e.g. Glucose: C6H12O6 ).
+
+    Returns:
+        ing: the greatest common divisor from number of each atom type.
+    """
     pedices = re.findall("[0-9]+", formula)
     pedices = [int(i) for i in pedices]
     return np.gcd.reduce(pedices)
@@ -199,8 +206,8 @@ def random_sei_grains(
     species,
     species_fraction_tol=0.005,
     Ngrains_max=None,
-    report: str or None = "report_grains_sei.csv",
-    surfaces_all=[(1, 0, 0), (1, 1, 0), (1, 1, 1)],
+    report: str or None = None,
+    surfaces_all: list or None = None,
     n_surfaces=2,
     seed=42,
 ):  # TODO `random_sei_grains` docstring
@@ -230,9 +237,15 @@ def random_sei_grains(
     if species_fractions.sum() > 1.0:
         species_fractions = species_fractions / species_fractions.sum()
 
+    if report is None:
+        report = "report_grains_sei.csv"
+
     if report:
         report_file = open(report, "w")
         report_file.write("n;mol;atoms;d;vol;surfaces;surf_energies\n")
+
+    if surfaces_all is None:
+        surfaces_all = [(1, 0, 0), (1, 1, 0), (1, 1, 1)]
 
     # Random Generator
     # seed = 1993

@@ -330,7 +330,6 @@ class PackmolError(Exception):
     """Pacmol error class."""
 
     # if packmol didn't find solution
-    pass
 
 
 def packmol(

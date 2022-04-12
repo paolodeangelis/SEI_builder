@@ -119,7 +119,7 @@ Roberta Cappabianca
 
 Eliodoro Chiavazzo
 
-If you liked our work check out team `SMaLL`_
+If you liked our work check out out team `SMaLL`_
 
 
 Indices and tables
