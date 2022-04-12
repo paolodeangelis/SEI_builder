@@ -17,11 +17,11 @@ A set of Jupyter notebooks to build and study battery aging.
 
 <p align="center">
     <a target="_blank" href="https://python.org"><img
-        src="https://img.shields.io/badge/Python-3.6%20%7C%203.7%20%7C%203.8-blue?logo=python&amp;logoColor=white"
+        src="https://img.shields.io/badge/Python-3.8%20%7C%203.9-blue?logo=python&amp;logoColor=white"
         alt="Made with Python" />
     </a>
     <a target="_blank" href="https://jupyter.org"><img
-        src="https://img.shields.io/badge/Jupyter%20Lab-2.9%20|%203.0%20-orange?logo=jupyter&logoColor=white"
+        src="https://img.shields.io/badge/Jupyter%20Lab-3.x-orange?logo=jupyter&logoColor=white"
         alt="Jupyter friendly" />
     </a>
     <!---
@@ -76,7 +76,6 @@ A set of Jupyter notebooks to build and study battery aging.
 -   [🎉 Installation](#-installation)
     -   [<img src="img/etc/pip.png" width="13px"> Using `pip`](#using-pip)
     -   [<img src="img/etc/conda.png" width="13px"> Using `conda`](#using-conda)
-    -   [Clone `lammps_wrapper` *Submodule* [temporary]](#clone-lammps-wrapper-submodule)
     -   [Install `packmol`](#install-packmol)
     -   [Configure `MPInterface`](#configure-mpinterface)
 
@@ -168,70 +167,7 @@ conda env create -f SEI_builder/environment.yml
 ```shell-session
 conda activate venv_sei
 ```
-
-#### Install dependencies
-
-> NOTE: if you made the virtual environment following the [previous step](#set-up-virtual-environment-conda)
-> you can skip this step.
-
-1.  move in the *SEI Builder* folder
-```shell-session
-cd SEI_builder
-```
-
-2.  downlaod and install the requiremnts with `pip` (Package Installer for Python)
-
-```shell-session
-pip install -r requirements.txt
-```
-
-3.  check if all the jupyter widget are working:
-
-```shell-session
-jupyter labextension list
-# JupyterLab v3.1.17
-# /.../venv_sei/share/jupyter/labextensions
-#        nglview-js-widgets v3.0.1 enabled OK
-#        jupyterlab-plotly v5.3.1 enabled OK
-#        @jupyter-widgets/jupyterlab-manager v3.0.1 enabled OK (python, jupyterlab_widgets)
-#        @bokeh/jupyter_bokeh v3.0.4 enabled OK (python, jupyter_bokeh)
-```
-
-if the line `nglview-js-widgets v3.0.1 enabled OK` is missing, run the following command:
-
-```shell-session
-$ pip install --force-reinstall nglview
-```
-
 </details>
-
-### <a name="clone-lammps-wrapper-submodule" /> Clone `lammps-wrapper` *Submodule* [temporary]
-
-The `lammps-wrapper` developend is ongoing and stil not yet published on [Pypi](https://pypi.org/) repository.
-To get the last updated download it with the following command.
-
-```shell-session
-git submodule update --init
-```
-### <a name="install-packmol" /> Install `packmol`
-
-1.  Clone from repository
-```shell-session
-git clone https://github.com/m3g/packmol.git
-```
-
-2.  Compile it
-```shell-session
-cd packmol
-make
-```
-
-3.  (optional) create a symbolic link to local `bin` folder
-
-```shell-session
-ln -s $(pwd)/packmol /home/$USER/.local/bin/packmol
-```
-
 
 ### <a name="configure-mpinterface" /> Configure `MPInterface`
 
@@ -241,7 +177,7 @@ Access to [Material Project](https://materialsproject.org/) and follow the istru
 
 #### Make the configuration file
 
-1. Run the script replacing `<MATERIAL_PROJECT_KEY>` with the API key got in the [previus step](#configure-mpinterface).
+1.  Run the script replacing `<MATERIAL_PROJECT_KEY>` with the API key got in the [previus step](#configure-mpinterface).
 
 ```shell-session
 python3 mpinterfaces_setup.py -k <MATERIAL_PROJECT_KEY>
