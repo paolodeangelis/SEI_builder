@@ -8,7 +8,7 @@
 Installation
 ============
 
-The code supports Python 3.6 and newer.
+The code supports Python 3.8 and newer.
 
 Clone repository
 ----------------

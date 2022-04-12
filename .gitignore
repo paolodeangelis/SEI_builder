@@ -136,3 +136,4 @@ dmypy.json
 seibuilder/mpinterfaces/mpint_config.yaml
 /.vscode
 .vscode
+.draft

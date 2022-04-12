@@ -9,7 +9,6 @@ import re
 import signal
 from collections import deque
 from contextlib import contextmanager
-from datetime import datetime
 from typing import Tuple
 
 import numpy as np
@@ -22,43 +21,11 @@ from pymatgen.ext.matproj import MPRester
 from pymatgen.io.ase import AseAtomsAdaptor
 from scipy.spatial import ConvexHull
 
-from .mpinterfaces import MP_API
-from .mpinterfaces.nanoparticle import Nanoparticle
+from ..mpinterfaces import MP_API
+from ..mpinterfaces.nanoparticle import Nanoparticle
+from ..utils import message
 
 TIME_FORMAT = "%H:%M:%S %Z"
-
-
-def message(msg: str, msg_type: str = "info", add_date: bool = False, **kwargs) -> None:
-    """
-    Print on screen useful messages.
-
-    Args:
-        msg (str): message to print
-        msg_type (str): Optional; type of message
-            'error' or 'e'      -- errors messages
-            'warning' or 'w'    -- warning messages
-            'info' or 'i'       -- info messages
-            'debug' or 'd'      -- debug messages
-
-    Returns:
-        None
-
-    """
-    if add_date:
-        msg = f"[{datetime.now().astimezone().strftime(TIME_FORMAT)}] {msg}"
-
-    if msg_type.lower() == "debug" or msg_type.lower() == "d":
-        print("\x1b[34m[D]: " + msg + "\x1b[0m", **kwargs)
-    elif msg_type.lower() == "info" or msg_type.lower() == "i":
-        print("[I]: " + msg, **kwargs)
-    elif msg_type.lower() == "warning" or msg_type.lower() == "w":
-        print("\x1b[33m[W]: " + msg + "\x1b[0m", **kwargs)
-    elif msg_type.lower() == "error" or msg_type.lower() == "e":
-        print("\x1b[31m[E]: " + msg + "\x1b[0m", **kwargs)
-
-    return None
-
-
 # Material Project query
 matprj = MPRester(MP_API)  # Material Project API KEY
 matget2ase = AseAtomsAdaptor()

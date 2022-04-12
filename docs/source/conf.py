@@ -124,11 +124,12 @@ def linkcode_resolve(domain, info):  # noqa: D103
     try:
         rel_path, line_start, line_end = find_source()
         # __file__ is imported from pymatgen.core
-        filename = f"seibuilder/{rel_path}#L{line_start}-L{line_end}"
+        filename = f"main/seibuilder/{rel_path}#L{line_start}-L{line_end}"
     except:  # noqa: E722
         # no need to be relative to core here as module includes full path.
-        filename = info["module"].replace(".", "/") + ".py"
+        filename = "main/" + info["module"].replace(".", "/") + ".py"
 
     # tag = "v" + __version__
-    tag = "main"
-    return f"https://github.com/paolodeangelis/SEI_builder/blob/{tag}/{filename}"
+    branch = "main"
+    code_url = f"https://github.com/paolodeangelis/SEI_builder/blob/{branch:s}/{filename:s}"
+    return code_url
