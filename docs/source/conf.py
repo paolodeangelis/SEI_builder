@@ -17,13 +17,13 @@ import sys
 sys.path.insert(0, os.path.abspath("."))
 sys.path.insert(0, os.path.abspath(".."))
 sys.path.insert(0, os.path.abspath("../.."))
-from seibuilder import __version__  # noqa: E402
+from seibuilder import __author__, __copyright__, __version__  # noqa: E402
 
 # -- Project information -----------------------------------------------------
 
 project = "SEI Builder"
-copyright = "2022, SMaLL Team"  # noqa: A001
-author = "SMaLL Team"
+copyright = __copyright__  # noqa: A001
+author = __author__
 
 # The full version, including alpha/beta/rc tags
 release = __version__
