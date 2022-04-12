@@ -1,15 +1,15 @@
 ase # TODO Fix version of all requiremnts
-cython
-jupyter
-jupyterlab
-jupyter-bokeh
-matplotlib>=3.3.3
-MPInterfaces
+jupyter==1.0.0
+jupyterlab==3.3.2
+jupyter-bokeh==3.0.4
+matplotlib==3.5.1
+# MPInterfaces # TODO Get rid of MPInterfaces
+numpy==1.22.3
 pymatgen==2019.10.16
-nglview
-numpy>=1.19
+nglview==3.0.3
 scikit-learn~=0.22.2.post1
 scipy~=1.5.2
+
 pre-commit
 black
 isort
@@ -19,7 +19,7 @@ flake8-builtins
 pyupgrade
 black[jupyter]
 sphinx
-sphinxcontrib-napoleonpip
+sphinxcontrib-napoleon
 sphinx-rtd-theme
 sphinx-tabs
 sphinxcontrib-bibtex
