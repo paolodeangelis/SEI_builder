@@ -37,7 +37,7 @@ class Nanoparticle(Molecule):
         self.set_miller_family()
         Molecule.__init__(
             self,
-            [sn[0].species_and_occu for sn in spherical_neighbors],
+            [sn[0].species for sn in spherical_neighbors],
             [sn[0].coords for sn in spherical_neighbors],
             charge=0,
         )
