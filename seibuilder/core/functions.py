@@ -198,9 +198,22 @@ def get_gcd_pedices(formula: str) -> int:
     return np.gcd.reduce(pedices)
 
 
+def _print_imposible_grain_warning(grain_id, specie_formula, d_guess, V_guess, surfaces, esurf):
+    message(" " * 150, end="\r", msg_type="i", add_date=True)
+    message(
+        "Was impossible build a grain particle ({:d}) of specie {:s} with target lenght {:.2f} AA and volume"
+        " {:.2f} AA^3 and surface ".format(grain_id, specie_formula, d_guess, V_guess)
+        + str(surfaces)
+        + str(esurf),
+        end="\n",
+        msg_type="w",
+        add_date=True,
+    )
+
+
 def random_sei_grains(
     Natoms: int,
-    species: List[Structure],
+    species_unitcell: List[Structure],
     species_fractions: list,
     random_sampler: List[Callable],
     species_fraction_tol: float = 0.005,
@@ -255,7 +268,7 @@ def random_sei_grains(
 
     if report:
         report_file = open(report, "w")
-        report_file.write("n;mol;atoms;d;vol;surfaces;surf_energies\n")
+        report_file.write("n,mol,atoms,d,vol,surfaces,surf_energies\n")
 
     if cutting_planes is None:
         cutting_planes = [(1, 0, 0), (1, 1, 0), (1, 1, 1)]
@@ -271,8 +284,8 @@ def random_sei_grains(
     out_vol = np.zeros(Ngrains_max, dtype=float)
     out_d = np.zeros(Ngrains_max, dtype=float)
     out_species = np.zeros(Ngrains_max, dtype=int)
-    molecules_in_unit_cell = np.array([get_gcd_pedices(i.formula) for i in species])
-    atoms_in_unit_cell = np.array([len(i.sites) for i in species])
+    molecules_in_unit_cell = np.array([get_gcd_pedices(system.formula) for system in species_unitcell])
+    atoms_in_unit_cell = np.array([len(system.sites) for system in species_unitcell])
     species_fractions_atoms = species_fractions / molecules_in_unit_cell * atoms_in_unit_cell
     species_fractions_atoms /= species_fractions_atoms.sum()
     Natoms_per_species = np.ceil(species_fractions_atoms * Natoms).astype(int)
@@ -288,7 +301,7 @@ def random_sei_grains(
         d_guess = random_sampler[i_specie]()
         V_guess = np.power(d_guess, 3) * np.pi / 6
         # unit_cell_vol = np.linalg.det(LiF.lattice_basis)
-        specie = species[i_specie]
+        specie = species_unitcell[i_specie]
         specie_formula = specie.formula
         unit_cell_vol = specie.lattice.volume
         surfaces = rg.choice(cutting_planes, size=n_planes, replace=False)
@@ -306,10 +319,10 @@ def random_sei_grains(
             )
             continue
         filling_percentage = Natoms_per_species_out / Natoms_per_species * 100
-        filling_string = [f"{spec.formula:s}: {filling_percentage[i]:.2f}%" for i, spec in enumerate(species)]
+        filling_string = [f"{spec.formula:s}: {filling_percentage[i]:.2f}%" for i, spec in enumerate(species_unitcell)]
         message(" " * 150, end="\r", msg_type="i", add_date=True)
         message(
-            "NP {:d}: d_guess={:.2f} AA, vol_guess={:.2f}  AA^3 ({:s}); filling: ".format(
+            "GRAIN {:d}: d_guess={:.2f} AA, vol_guess={:.2f}  AA^3 ({:s}); filling: ".format(
                 i + 1, d_guess, V_guess, specie_formula
             )
             + "; ".join(filling_string)
@@ -322,17 +335,8 @@ def random_sei_grains(
             N_atoms, Vol_fin, D_fin, rmax_i, grain = from_d_to_grain(
                 d_guess, specie, surfaces, esurf, maxiter=20, verbose=0, tol=0.01, timeout=50
             )
-        except Exception:
-            message(" " * 150, end="\r", msg_type="i", add_date=True)
-            message(
-                "Was impossible build a nanoparticle ({:d}) of specie {:s} with target lenght {:.2f} AA and volume"
-                " {:.2f} AA^3 and surface ".format(i + 1, specie_formula, d_guess, V_guess)
-                + str(surfaces)
-                + str(esurf),
-                end="\n",
-                msg_type="w",
-                add_date=True,
-            )
+        except Exception:  # TODO: get right Exception (too general)
+            _print_imposible_grain_warning(i + 1, specie_formula, d_guess, V_guess, surfaces, esurf)
             continue
         message(" " * 150, end="\r", msg_type="i", add_date=True)
         message(f"NP {i + 1:d}: vol={Vol_fin:.2f}, d={D_fin:.2f} ", end="\r", msg_type="i", add_date=True)
@@ -344,7 +348,7 @@ def random_sei_grains(
             )
             message(" " * 150, end="\r", msg_type="w", add_date=True)
             message(
-                "Nanoparticle {:d} rejected since exceed the total numebr of atoms allow for specie {:s}".format(
+                "Grain particle {:d} rejected since exceed the total numebr of atoms allow for specie {:s}".format(
                     i + 1, specie_formula
                 ),
                 end="\n",
@@ -363,22 +367,13 @@ def random_sei_grains(
                 out_grains.append(grain)
                 if report:
                     report_file.write(
-                        "{:d};{:s};{:d};{:10.6f};{:10.6f};{};{}\n".format(
+                        "{:d},{:s},{:d},{:10.6f},{:10.6f},{},{}\n".format(
                             i, specie_formula, len(grain), D_fin, Vol_fin, surfaces, esurf
                         )
                     )
                 i += 1
             else:
-                message(" " * 150, end="\r", msg_type="i", add_date=True)
-                message(
-                    "Was impossible build a nanoparticle ({:d}) of specie {:s} with target lenght {:.2f} AA and volume"
-                    " {:.2f} AA^3 and surface ".format(i + 1, specie_formula, d_guess, V_guess)
-                    + str(surfaces)
-                    + str(esurf),
-                    end="\n",
-                    msg_type="w",
-                    add_date=True,
-                )
+                _print_imposible_grain_warning(i + 1, specie_formula, d_guess, V_guess, surfaces, esurf)
         # ending criteria
         if np.all(exceed_per_species) or Natoms_per_species_out.sum() > Natoms * (1 + species_fraction_tol):
             break
