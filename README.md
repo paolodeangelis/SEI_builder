@@ -85,8 +85,6 @@ A set of Jupyter notebooks to build and study battery aging.
 
 -   [🤝 Contributing](#-contributing)
 
-
-
 -   [🎖️️️ CREDITS](#-creditscreditsmd)
 <!---
 # TODO set LICENSE
