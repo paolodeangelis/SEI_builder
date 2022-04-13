@@ -189,7 +189,7 @@ python3 mpinterfaces_setup.py -k <MATERIAL_PROJECT_KEY>
 
 ## 🚀 Usage
 
-he workflow can be run interactively using the web-based interactive development environment `JupyterLab`
+The workflow can be run interactively using the web-based interactive development environment `JupyterLab`
 
 ### Start `JupyterLab`
 
