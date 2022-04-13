@@ -80,8 +80,10 @@ A set of Jupyter notebooks to build and study battery aging.
     -   [Configure `MPInterface`](#configure-mpinterface)
 
 -   [🚀 Usage](#-examples)
+    -   [Start `JupyterLab`](#start-jupyterlab)
+    -   [Configure `MPInterface`](#configure-mpinterface
 
--   [😍 Contributing](#-contributing)
+-   [🤝 Contributing](#-contributing)
 
 -   [🚩 License](#-license)
 
@@ -185,8 +187,34 @@ python3 mpinterfaces_setup.py -k <MATERIAL_PROJECT_KEY>
 
 ## 🚀 Usage
 
-## 😍 Contributing
+he workflow can be run interactively using the web-based interactive development environment `JupyterLab`
 
+
+### Start `JupyterLab`
+
+Start JupyterLab using:
+
+```shell-session
+    jupyter lab
+```
+
+For more option to control your interface check `JupyterLab documentation`_
+
+### Run the workflow
+
+1.  Open the notebook ``1-SEI_Builder-step1.ipynb`` (:numref:`fig_jupyter_nb_step1`).
+
+
+2.  Follow and execute all *text* blocks (with the explanations) and the *code* blocks.
+
+[![View of `1-SEI_Builder-step1.ipynb` in JupyterLab](docs/source/pages/usage/img/jupyterlab_1-SEI_Builder-step1.png)](1-SEI_Builder-step1.ipynb)
+.. _fig_jupyter_nb_step1:
+
+## 🤝 Contributing
+
+The workflow is under test and analysis; thus, we do not accept contributions for the moment.
+
+<!---
 We highly welcome contributions!
 
 There is a lot to do:
@@ -196,6 +224,7 @@ There is a lot to do:
 -   fix bugs
 
 But first read the [**Contributing guidelines**](CONTRIBUTING.md).
+--->
 
 ## 🚩 License
 The code is available under the [MIT license](LICENSE).

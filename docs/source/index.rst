@@ -16,8 +16,8 @@
      :alt: License - GNU GPLv3
 
 .. TODO change the DOI
-.. image:: https://zenodo.org/badge/37893482.svg
-   :target: https://doi.org/10.5281/zenodo.2554262
+.. image:: http://img.shields.io/badge/DOI-to%20define-blue.svg
+   :target: http://img.shields.io/badge/DOI-to%20define-blue.svg
 
 SEI Builder
 ===========
