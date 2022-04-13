@@ -139,3 +139,4 @@ seibuilder/mpinterfaces/mpint_config.yaml
 .draft
 out
 
+report_grains_sei.csv
