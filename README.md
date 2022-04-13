@@ -198,10 +198,10 @@ he workflow can be run interactively using the web-based interactive development
 Start JupyterLab using:
 
 ```shell-session
-    jupyter lab
+jupyter lab
 ```
 
-For more option to control your interface check `JupyterLab documentation`_
+For more option to control your interface check [`JupyterLab documentation`](https://jupyterlab.readthedocs.io/en/stable/index.html)
 
 ### Run the workflow
 
