@@ -85,9 +85,13 @@ A set of Jupyter notebooks to build and study battery aging.
 
 -   [🤝 Contributing](#-contributing)
 
--   [🚩 License](#-license)
+
 
 -   [🎖️️️ CREDITS](#-creditscreditsmd)
+<!---
+# TODO set LICENSE
+-   [🚩 License](#-license)
+--->
 
 ## 🎉 Installation
 
@@ -213,6 +217,7 @@ For more option to control your interface check `JupyterLab documentation`_
 The workflow is under test and analysis; thus, we do not accept contributions for the moment.
 
 <!---
+# TODO set open contributions
 We highly welcome contributions!
 
 There is a lot to do:
@@ -224,8 +229,11 @@ There is a lot to do:
 But first read the [**Contributing guidelines**](CONTRIBUTING.md).
 --->
 
+<!---
+# TODO set LICENSE
 ## 🚩 License
 The code is available under the [MIT license](LICENSE).
+--->
 
 ## 🎖️️️ [CREDITS](CREDITS.md)
 
