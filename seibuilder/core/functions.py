@@ -8,7 +8,7 @@ import re
 import signal
 from collections import deque
 from contextlib import contextmanager
-from typing import Tuple
+from typing import Callable, List, Tuple
 
 import numpy as np
 
@@ -199,37 +199,50 @@ def get_gcd_pedices(formula: str) -> int:
 
 
 def random_sei_grains(
-    Natoms,
-    species_fractions,
-    molecules_in_unit_cell,
-    random_sampler,
-    species,
-    species_fraction_tol=0.005,
-    Ngrains_max=None,
+    Natoms: int,
+    species: List[Structure],
+    species_fractions: list,
+    random_sampler: List[Callable],
+    species_fraction_tol: float = 0.005,
+    Ngrains_max: int = None,
     report: str or None = None,
-    surfaces_all: list or None = None,
-    n_surfaces=2,
-    seed=42,
-):  # TODO `random_sei_grains` docstring
-    """_summary_ .
+    cutting_planes: list or None = None,
+    n_planes: int = 2,
+    seed: int = None,
+) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, List[Atoms]]:  # TODO `random_sei_grains` docstring
+    """Get the different grains knowing the size distribution, cutting planes, and molar fraction.
 
-    _description_.
-
+    The function random generates a grain knowing the crystal unit cell and the grain size distribution.
+    The sampling is constrained to get the final number of atoms close to ``Natoms`` and to respect the
+    molar fraction of each component (``species_fractions``).
     Args:
-        Natoms (_type_): _description_
-        species_fractions (_type_): _description_
-        molecules_in_unit_cell (_type_): _description_
-        random_sampler (_type_): _description_
-        species (_type_): _description_
-        species_fraction_tol (float, optional): _description_. Defaults to 0.005.
-        Ngrains_max (_type_, optional): _description_. Defaults to None.
-        report (strorNone, optional): _description_. Defaults to "report_grains_sei.csv".
-        surfaces_all (list, optional): _description_. Defaults to [(1, 0, 0), (1, 1, 0), (1, 1, 1)].
-        n_surfaces (int, optional): _description_. Defaults to 2.
-        seed (int, optional): _description_. Defaults to 42.
+        Natomas (int): Max number of atoms to sample.
+        species_unitcell (List[Structure]): list containing pymatgen.Structure objects that represent
+        the unit cells of each SEI crystal component.
+        species_fractions (list): The molar fraction for each crystal.
+        random_sampler (List[Callable]): list containing the size distribution functions, i.e., a callable
+            object that returns the characteristic grain size (diameter).
+        species_fraction_tol (float, optional): tolerance for final molar fraction. Defaults to 0.005.
+        Ngrains_max (int, optional): Max number of atoms for each grain, if None will be set as 1/10 of ``Natoms``.
+            Defaults to None.
+        report (str or None, optional): report ``.csv`` file name. If None, the report will be saved in the file
+            ``report_grains_sei.csv``. Defaults to None.
+        cutting_planes (list or None, optional): _description_. Defaults to None.
+        n_planes (int, optional): number of planes to randomly choose from ``cutting_planes``. Defaults to 2.
+        seed (int, optional): random state seed for the random number generator. Defaults to None.
 
     Returns:
-        _type_: _description_
+        Tuple[numpy.ndarray, NumPy.ndarray, NumPy.ndarray, NumPy.ndarray, List[Atoms]]: tuple containing:
+            -  NumPy.ndarray:
+               an array containing the index of the cristal sampled.
+            -  NumPy.ndarray:
+               an array containing grain size sampled.
+            -  NumPy.ndarray:
+               an array containing grain volume computed as the "convex hull" volume from the atoms' positions.
+            -  NumPy.ndarray:
+               array with the final molar fraction for each cristal.
+            -  List[Atoms]:
+               a list containing ASE.Atoms are the random grains generated.
     """
     if Ngrains_max is None:
         Ngrains_max = Natoms // 10
@@ -244,8 +257,8 @@ def random_sei_grains(
         report_file = open(report, "w")
         report_file.write("n;mol;atoms;d;vol;surfaces;surf_energies\n")
 
-    if surfaces_all is None:
-        surfaces_all = [(1, 0, 0), (1, 1, 0), (1, 1, 1)]
+    if cutting_planes is None:
+        cutting_planes = [(1, 0, 0), (1, 1, 0), (1, 1, 1)]
 
     # Random Generator
     # seed = 1993
@@ -258,10 +271,11 @@ def random_sei_grains(
     out_vol = np.zeros(Ngrains_max, dtype=float)
     out_d = np.zeros(Ngrains_max, dtype=float)
     out_species = np.zeros(Ngrains_max, dtype=int)
+    molecules_in_unit_cell = np.array([get_gcd_pedices(i.formula) for i in species])
     atoms_in_unit_cell = np.array([len(i.sites) for i in species])
     species_fractions_atoms = species_fractions / molecules_in_unit_cell * atoms_in_unit_cell
     species_fractions_atoms /= species_fractions_atoms.sum()
-    Natoms_per_species = np.round(species_fractions_atoms * Natoms).astype(int)
+    Natoms_per_species = np.ceil(species_fractions_atoms * Natoms).astype(int)
     Natoms_per_species_out = np.zeros(len(species_fractions), dtype=int)
     exceed_per_species = np.array([False] * len(species_fractions))
 
@@ -277,9 +291,9 @@ def random_sei_grains(
         specie = species[i_specie]
         specie_formula = specie.formula
         unit_cell_vol = specie.lattice.volume
-        surfaces = rg.choice(surfaces_all, size=n_surfaces, replace=False)
+        surfaces = rg.choice(cutting_planes, size=n_planes, replace=False)
         surfaces = [tuple(s) for s in surfaces]
-        esurf = np.abs(rg.normal(loc=1, scale=0.2, size=n_surfaces))
+        esurf = np.abs(rg.normal(loc=1, scale=0.2, size=n_planes))
         esurf /= esurf.max()
         # check
         if V_guess < 1.5 * unit_cell_vol:
