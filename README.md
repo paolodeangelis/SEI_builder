@@ -36,7 +36,7 @@ A set of Jupyter notebooks to build and study battery aging.
         alt="OS - Linux" />
     </a>
     <a target="_blank" href="/CONTRIBUTING.md"><img
-        src="https://img.shields.io/badge/contributions-welcome-green"
+        src="https://img.shields.io/badge/contributions-close-red"
         alt="Contributions - welcome" />
     </a>
     <a target="_blank" href="https://github.com/psf/black"><img
@@ -81,7 +81,7 @@ A set of Jupyter notebooks to build and study battery aging.
 
 -   [🚀 Usage](#-examples)
     -   [Start `JupyterLab`](#start-jupyterlab)
-    -   [Configure `MPInterface`](#configure-mpinterface
+    -   [Run the workflow](#Run-the-workflow)
 
 -   [🤝 Contributing](#-contributing)
 
@@ -204,11 +204,9 @@ For more option to control your interface check `JupyterLab documentation`_
 
 1.  Open the notebook ``1-SEI_Builder-step1.ipynb`` (:numref:`fig_jupyter_nb_step1`).
 
-
 2.  Follow and execute all *text* blocks (with the explanations) and the *code* blocks.
 
 [![View of `1-SEI_Builder-step1.ipynb` in JupyterLab](docs/source/pages/usage/img/jupyterlab_1-SEI_Builder-step1.png)](1-SEI_Builder-step1.ipynb)
-.. _fig_jupyter_nb_step1:
 
 ## 🤝 Contributing
 
