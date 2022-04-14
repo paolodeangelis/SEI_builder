@@ -21,6 +21,6 @@ help:
 
 # at additiona BUILD API istructions
 buildapi:
-	sphinx-apidoc -fMeT -o source/pages/api/ ../seibuilder ../seibuilder/mpinterfaces
+	sphinx-apidoc -fMET -o source/pages/api/ ../seibuilder ../seibuilder/mpinterfaces
 	@echo "Auto-generation of API documentation finished. " \
 		"The generated files are in 'api/'"

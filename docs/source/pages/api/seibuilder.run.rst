@@ -1,18 +1,28 @@
 seibuilder.run package
 ======================
 
-.. .. automodule:: seibuilder.run
-..    :members:
-..    :undoc-members:
-..    :show-inheritance:
-..    :noindex:
+.. automodule:: seibuilder.run
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 Submodules
 ----------
 
-.. toctree::
-   :maxdepth: 4
 
-   seibuilder.run.bash_handler
-   seibuilder.run.job_handler
-   seibuilder.run.job_handler_utils
+.. automodule:: seibuilder.run.bash_handler
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+.. automodule:: seibuilder.run.job_handler
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+.. automodule:: seibuilder.run.job_handler_utils
+   :members:
+   :undoc-members:
+   :show-inheritance:

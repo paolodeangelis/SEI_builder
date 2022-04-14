@@ -1,10 +1,21 @@
-API Documentation
-=================
+.. seibuilder documentation master file, created by
+   sphinx-quickstart on Thu Apr 14 23:22:15 2022.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
 
-Information on specific functions, classes, and methods.
+Welcome to seibuilder's documentation!
+======================================
 
 .. toctree::
    :maxdepth: 4
-   :glob:
+   :caption: Contents:
 
-   seibuilder.rst
+   seibuilder
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
