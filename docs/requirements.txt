@@ -1,8 +1,8 @@
 ase==3.22.1
 matplotlib==3.5.1
-numpy
+numpy==1.22.3
 pymatgen==2020.12.18
-scipy
+scipy~=1.5.2
 sphinx
 sphinxcontrib-napoleon
 sphinx-rtd-theme
