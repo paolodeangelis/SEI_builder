@@ -11,9 +11,9 @@
 .. image:: https://app.codacy.com/project/badge/Grade/7c4a93b7223e491a8d48322ba0ee8d04
    :target: https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=paolodeangelis/SEI_builder&amp;utm_campaign=Badge_Grade
 
-.. image:: https://img.shields.io/badge/license-GNU%20GPLv3-green
-     :target: https://github.com/paolodeangelis/SEI_builder/blob/main/LICENSE
-     :alt: License - GNU GPLv3
+.. .. image:: https://img.shields.io/badge/license-GNU%20GPLv3-green  # TODO define a LICENSE
+..      :target: https://github.com/paolodeangelis/SEI_builder/blob/main/LICENSE
+..      :alt: License - GNU GPLv3
 
 .. TODO change the DOI
 .. image:: http://img.shields.io/badge/DOI-to%20be%20define-blue.svg

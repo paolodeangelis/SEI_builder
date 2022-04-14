@@ -1,10 +1,10 @@
 seibuilder package
 ==================
 
-.. automodule:: seibuilder
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. .. automodule:: seibuilder
+..    :members:
+..    :undoc-members:
+..    :show-inheritance:
 
 Subpackages
 -----------

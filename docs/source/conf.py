@@ -21,7 +21,7 @@ sys.path.insert(0, os.path.abspath(".."))
 sys.path.insert(0, os.path.abspath("../.."))
 for path in glob.glob("../../seibuilder/*"):
     if os.path.isdir(path):
-        sys.path.insert(0, path)
+        sys.path.insert(0, os.path.abspath(path))
 from seibuilder import __author__, __copyright__, __version__  # noqa: E402
 
 # -- Project information -----------------------------------------------------
