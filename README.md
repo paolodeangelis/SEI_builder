@@ -54,8 +54,8 @@ A set of Jupyter notebooks to build and study battery aging.
         src="https://github.com/paolodeangelis/SEI_builder/actions/workflows/liter.yml/badge.svg"
         alt="Liter" />
     </a>
-        <a target="_blank" href="https://results.pre-commit.ci/latest/github/DAP93/SEI_builder/main?badge_token=zRcWs0cGTEaB1hO3Co5J9g"><img
-        src="https://results.pre-commit.ci/badge/github/DAP93/SEI_builder/main.svg?badge_token=zRcWs0cGTEaB1hO3Co5J9g"
+        <a target="_blank" href="https://results.pre-commit.ci/badge/github/paolodeangelis/SEI_builder/main.svg"><img
+        src="https://results.pre-commit.ci/badge/github/paolodeangelis/SEI_builder/main.svg"
         alt="pre-commit.ci status" />
     </a>
     <a target="_blank" href="https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=paolodeangelis/SEI_builder&amp;utm_campaign=Badge_Grade"><img
