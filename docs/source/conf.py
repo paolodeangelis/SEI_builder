@@ -42,6 +42,7 @@ extensions = [
     "sphinx_tabs.tabs",
     "sphinx.ext.mathjax",
     "sphinx_copybutton",
+    "sphinx.ext.autodoc",
 ]
 
 # If true, the current module name will be prepended to all description
@@ -81,7 +82,7 @@ templates_path = ["_templates"]
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = []  # type: ignore
 
-autodoc_mock_imports = ["numpy", "ase", "pyscal", "mpinterfaces", "pymatgen", "scipy", "matplotlib"]  # TODO remove
+autodoc_mock_imports = ["numpy", "ase", "pymatgen", "scipy", "matplotlib"]  # TODO remove
 
 # -- Options for HTML output -------------------------------------------------
 
