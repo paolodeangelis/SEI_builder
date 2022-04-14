@@ -221,7 +221,7 @@ def random_sei_grains(
     cutting_planes: Optional[list] = None,
     n_planes: int = 2,
     seed: int = None,
-) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray[Atoms]]:  # TODO `random_sei_grains` docstring
+) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, List[Atoms]]:  # type: ignore
     """Get the different grains knowing the size distribution, cutting planes, and molar fraction.
 
     The function random generates a grain knowing the crystal unit cell and the grain size distribution.
@@ -389,7 +389,7 @@ def random_sei_grains(
     out_species_fraction /= out_species_fraction.sum()
     if report:
         report_file.close()
-    return out_species, out_d, out_vol, out_species_fraction, out_grains
+    return out_species, out_d, out_vol, out_species_fraction, out_grains  # type: ignore
 
 
 # coordination number
