@@ -9,3 +9,5 @@ sphinx-rtd-theme
 sphinx-tabs
 sphinxcontrib-bibtex
 sphinx-copybutton
+jupyter==1.0.0
+jupyterlab==3.3.2
