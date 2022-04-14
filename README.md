@@ -2,9 +2,6 @@
     SEI Builder
     <br>
     <picture>
-      <source
-        srcset="img/logo_dark.png"
-        media="(prefers-color-scheme: dark)">
       <img width="300"
         alt="logo"
         src="img/logo.png" >
@@ -51,7 +48,7 @@ A set of Jupyter notebooks to build and study battery aging.
         alt="CI - GH Actions" />
     </a>
     <a target="_blank" href="https://github.com/paolodeangelis/SEI_builder/actions/workflows/linter.yml"><img
-        src="https://github.com/paolodeangelis/SEI_builder/actions/workflows/linter.ymll/badge.svg"
+        src="https://github.com/paolodeangelis/SEI_builder/actions/workflows/linter.yml/badge.svg"
         alt="Linter" />
     </a>
         <a target="_blank" href="https://results.pre-commit.ci/badge/github/paolodeangelis/SEI_builder/main.svg"><img
