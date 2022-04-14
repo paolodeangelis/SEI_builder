@@ -1,11 +1,11 @@
 seibuilder.core package
 =======================
 
-.. automodule:: seibuilder.core
-   :members:
-   :undoc-members:
-   :show-inheritance:
-   :noindex:
+.. .. automodule:: seibuilder.core
+..    :members:
+..    :undoc-members:
+..    :show-inheritance:
+..    :noindex:
 
 Submodules
 ----------

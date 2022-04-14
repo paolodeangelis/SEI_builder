@@ -1,11 +1,11 @@
 seibuilder.run package
 ======================
 
-.. automodule:: seibuilder.run
-   :members:
-   :undoc-members:
-   :show-inheritance:
-   :noindex:
+.. .. automodule:: seibuilder.run
+..    :members:
+..    :undoc-members:
+..    :show-inheritance:
+..    :noindex:
 
 Submodules
 ----------
