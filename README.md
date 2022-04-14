@@ -1,11 +1,9 @@
 <h1 align="center">
-    SEI Builder
-    <br>
-    <picture>
-      <img width="300"
-        alt="logo"
-        src="img/logo.png" >
-    </picture>
+SEI Builder
+<br>
+<img width="300"
+alt="logo"
+src="img/logo.png" >
 </h1>
 
 <h3 align="center">
