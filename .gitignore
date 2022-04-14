@@ -138,5 +138,11 @@ seibuilder/mpinterfaces/mpint_config.yaml
 .vscode
 .draft
 out
-
+# packmol
 report_grains_sei.csv
+output-packmol.*
+output.xyz
+packmol.inp
+resname.tmp
+run_packmol.sh
+PACKMOL_MOL_input*

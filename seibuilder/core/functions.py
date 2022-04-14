@@ -267,7 +267,7 @@ def random_sei_grains(
 
     if report:
         report_file = open(report, "w")
-        report_file.write("n,mol,atoms,d,vol,surfaces,surf_energies\n")
+        report_file.write("n;mol;atoms;d;vol;surfaces;surf_energies\n")
 
     if cutting_planes is None:
         cutting_planes = [(1, 0, 0), (1, 1, 0), (1, 1, 1)]
@@ -366,7 +366,7 @@ def random_sei_grains(
                 out_grains.append(grain)
                 if report:
                     report_file.write(
-                        "{:d},{:s},{:d},{:10.6f},{:10.6f},{},{}\n".format(
+                        "{:d};{:s};{:d};{:10.6f};{:10.6f};{};{}\n".format(
                             i, specie_formula, len(grain), D_fin, Vol_fin, surfaces, esurf
                         )
                     )

@@ -116,18 +116,18 @@ def make_packmol_input(
 
         out.write(f"output {PACKMOL_OUT}\n\n")
     # print tmp residual name list
-    with open(TMP_RESNAME) as out:
+    with open(TMP_RESNAME, "w") as out:
         for i, structure in enumerate(structures):
             resname = structure.resname
             if resname is None:
                 resname = RESIDUE_DEFAULT_NAME.format(i + 1)
                 if verbose >= 2:
-                    message(f"The molecule {i+1} has no a residue name (we will named " + f"'{resname}')")
+                    message(f"The molecule {i+1} has no a residue name (we will named " + f"'{resname}')", msg_type="w")
             Na = len(structure.atoms)
             Nm = structure.number
             for n in range(Nm):
                 for na in range(Na):
-                    out.write(f"{resname}{n}\n")
+                    out.write(f"{resname}_{n}\n")
 
 
 # def _print_and_write(string, **kwarg):
@@ -185,7 +185,6 @@ def run_packmol(packmol_bin: str = None, n: int = 10, slurm: bool = False, verbo
             slurm=slurm,
             verbose=-1,
         )
-        print("e")
         if status == JOB_STATUS["COMPLETED"] or status == JOB_STATUS["COMPLETING"]:
             pass
         else:

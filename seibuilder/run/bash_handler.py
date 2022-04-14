@@ -51,7 +51,10 @@ def write_script_bash(
     with open(script_path, "w") as outfile:
         outfile.write("#!/bin/bash" + "\n")
         outfile.write(f"#ID {sim_id}" + "\n")
-        outfile.write(f"#USER {os.getlogin()}" + "\n")
+        try:
+            outfile.write(f"#USER {os.getlogin()}" + "\n")
+        except OSError:
+            outfile.write("#USER unknow" + "\n")
 
         # MODULE
         # if "module" in job_settings:
@@ -226,15 +229,22 @@ def check_job_status_bash(pid: int, job_out_file: str, job_err_file: str, verbos
     proc = Popen(["ps", f"{pid}"], stdout=PIPE, stderr=PIPE)
     out, err = proc.communicate()
     out = out.decode("utf8").split("\n")
+    if verbose >= 3:
+        message(f"ps {pid}", msg_type="d")
+        for out_ in out:
+            message(f"\t{out_}", msg_type="d")
     try:
-        if verbose >= 2:
-            message("Check the job stautus", msg_type="i")
-        status = JOB_STATUS_CONV[out[1].split()[2][0]]
+        if verbose >= 3:
+            message("Check the job stautus", msg_type="d")
+        status_key = out[1].split()[2][0]
+        status = JOB_STATUS_CONV[status_key]
+        if verbose >= 3:
+            message(f"status {status_key} = {JOB_STATUS_CONV[status_key]}", msg_type="d")
     except:  # noqa: E722
-        if verbose >= 2:
+        if verbose >= 3:
             message(
                 f"Check the job output files {os.path.abspath(job_out_file)}",
-                msg_type="i",
+                msg_type="d",
             )
         status, end_date = check_out_file_mark(job_out_file, job_err_file)
     return status, end_date

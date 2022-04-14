@@ -156,16 +156,15 @@ def _wait_job(
         job_out_file=job_out_file,
         job_err_file=job_err_file,
         slurm=slurm,
-        verbose=-1,
+        verbose=verbose,
     )
     i = 0
     clock = ["|", "/", "-", "\\"]
     if status != JOB_STATUS["RUNNING"]:
-        if add_time and verbose >= 2:
+        if verbose >= 2:
             message(" " * 100, msg_type="i", end="\r", flush=True)
             message(
-                "[{}] Job {} is not running (status: {} ({})) {}".format(
-                    datetime.now().astimezone().strftime(TIME_FORMAT),
+                "Job {} is not running (status: {} ({})) {}".format(
                     job_id,
                     status,
                     JOB_STATUS_INV[status],
@@ -174,16 +173,7 @@ def _wait_job(
                 msg_type="i",
                 end="\r",
                 flush=True,
-            )
-        elif verbose >= 2:
-            message(" " * 100, msg_type="i", end="\r", flush=True)
-            message(
-                "Job {} is not running (status: {} ({})) {}".format(
-                    job_id, status, JOB_STATUS_INV[status], clock[i % 4]
-                ),
-                msg_type="i",
-                end="\r",
-                flush=True,
+                add_date=add_time,
             )
         i += 1
         time.sleep(0.25)
@@ -242,7 +232,7 @@ def _follow_job(
             job_out_file=job_out_file,
             job_err_file=job_err_file,
             slurm=slurm,
-            verbose=-1,
+            verbose=verbose,
         )
         if notebook and 2 <= verbose < 4:
             waiting = True
