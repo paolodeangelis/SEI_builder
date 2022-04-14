@@ -1,0 +1,11 @@
+ase==3.22.1
+matplotlib==3.5.1
+numpy
+pymatgen==2020.12.18
+scipy
+sphinx
+sphinxcontrib-napoleon
+sphinx-rtd-theme
+sphinx-tabs
+sphinxcontrib-bibtex
+sphinx-copybutton

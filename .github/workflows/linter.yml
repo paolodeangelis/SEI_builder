@@ -1,4 +1,4 @@
-name: Liter
+name: Linter
 
 # Controls when the workflow will run
 on:
@@ -41,9 +41,9 @@ jobs:
         git_name: Autofix
         github_token: ${{ secrets.GITHUB_TOKEN }}
         black: true
-        mypy: true
         flake8: true  # NB auto_fix not yet supported
         auto_fix: true
+        # mypy: true
 
   jupyter-lint:
     strategy:

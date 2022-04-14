@@ -50,9 +50,9 @@ A set of Jupyter notebooks to build and study battery aging.
         src="https://img.shields.io/badge/CI-GitHub_Actions-blue?logo=github-actions&amp;logoColor=white"
         alt="CI - GH Actions" />
     </a>
-    <a target="_blank" href="https://github.com/paolodeangelis/SEI_builder/actions/workflows/liter.yml"><img
-        src="https://github.com/paolodeangelis/SEI_builder/actions/workflows/liter.yml/badge.svg"
-        alt="Liter" />
+    <a target="_blank" href="https://github.com/paolodeangelis/SEI_builder/actions/workflows/linter.yml"><img
+        src="https://github.com/paolodeangelis/SEI_builder/actions/workflows/linter.ymll/badge.svg"
+        alt="Linter" />
     </a>
         <a target="_blank" href="https://results.pre-commit.ci/badge/github/paolodeangelis/SEI_builder/main.svg"><img
         src="https://results.pre-commit.ci/badge/github/paolodeangelis/SEI_builder/main.svg"
