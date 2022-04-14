@@ -58,6 +58,9 @@ A set of Jupyter notebooks to build and study battery aging.
         src="https://results.pre-commit.ci/badge/github/paolodeangelis/SEI_builder/main.svg"
         alt="pre-commit.ci status" />
     </a>
+    <a href='https://sei-builder.readthedocs.io/en/latest/?badge=latest'>
+        <img src='https://readthedocs.org/projects/sei-builder/badge/?version=latest' alt='Documentation Status' />
+    </a>
     <a target="_blank" href="https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=paolodeangelis/SEI_builder&amp;utm_campaign=Badge_Grade"><img
         src="https://app.codacy.com/project/badge/Grade/7c4a93b7223e491a8d48322ba0ee8d04"
         alt="codacy" />
@@ -65,7 +68,7 @@ A set of Jupyter notebooks to build and study battery aging.
 </p>
 
 <p align="center">
-    <a target="_blank" href="http://img.shields.io/badge/DOI-to%20define-blue.svg"><img
+    <a target="_blank" href="http://img.shields.io/badge/DOI-to%20be%20define-blue.svg"><img
 		alt="DOI"
 		src="http://img.shields.io/badge/DOI-to%20be%20define-blue.svg">
     </a>

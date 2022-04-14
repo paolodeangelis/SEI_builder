@@ -4,13 +4,13 @@ my-big-map-app:
     description: |
         This app is an ASE-base workflow used to reproduce a rational initial SEI morphology at the atomic scale by stochastically placing the crystal grains of the inorganic salts formed during the SEI's reaction.
     authors: P. De Angelis, R. Cappabianca, E. Chiavazzo
-    external_url: #TODO
-    documentation_url: #TODO
-    logo: #TODO
+    external_url: https://github.com/paolodeangelis/SEI_builder
+    documentation_url: https://sei-builder.readthedocs.io
+    logo: https://github.com/paolodeangelis/SEI_builder/blob/main/img/logo.png
     state: development
     version: '0.1.dev'
   categories:
     - technology-ase
     - classical
     - wp3
-  git_url: # TODO
+  git_url: https://github.com/paolodeangelis/SEI_builder

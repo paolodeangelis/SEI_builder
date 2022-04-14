@@ -5,6 +5,7 @@ seibuilder.run package
    :members:
    :undoc-members:
    :show-inheritance:
+   :noindex:
 
 Submodules
 ----------

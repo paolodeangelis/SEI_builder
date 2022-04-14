@@ -5,6 +5,7 @@ seibuilder.packmol package
    :members:
    :undoc-members:
    :show-inheritance:
+   :noindex:
 
 Submodules
 ----------
