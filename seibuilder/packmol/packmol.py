@@ -78,7 +78,7 @@ def make_packmol_input(
     structures: List[PackmolStructure],
     tolerance: float = 2.0,
     verbose: int = 1,
-    maxit: int = 20,
+    maxit: Optional[int] = 20,
     nloop: Optional[int] = None,
     seed: Optional[int] = None,
 ):
@@ -105,6 +105,7 @@ def make_packmol_input(
         if seed is not None:
             out.write(f"seed {seed}\n\n")
         if maxit is not None:
+            maxit = 20
             out.write(f"maxit {maxit}\n\n")
         if nloop is not None:
             out.write(f"nloop {nloop}\n\n")

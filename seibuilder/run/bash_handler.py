@@ -2,7 +2,7 @@
 import os
 from datetime import datetime
 from subprocess import PIPE, Popen
-from typing import Tuple
+from typing import Optional, Tuple, Union
 
 from .._constants import (
     DATE_FORMAT,
@@ -20,7 +20,7 @@ class BashError(RuntimeError):
 
 
 def write_script_bash(
-    cmd: str or list,
+    cmd: Union[str, list],
     sim_id: str,
     job_settings: str = None,
     script_path: str = None,
@@ -29,7 +29,7 @@ def write_script_bash(
     """Write the ``bash`` script file.
 
     Args:
-        cmd (strorlist): job commands.
+        cmd (str or list): job commands.
         sim_id (str): simulation id.
         job_settings (str, optional): jobs settings file path. Defaults to None.
         script_path (str, optional): path where to save the ``bash`` script. Defaults to None.
@@ -149,7 +149,7 @@ def submit_job_bash(script_path: str, sim_id: str, afterok: int = None, verbose:
     return pid, job_out_file, job_err_file
 
 
-def check_out_file_mark(job_out_file: str, job_err_file: str, verbose: int = 0) -> Tuple[str, datetime]:
+def check_out_file_mark(job_out_file: str, job_err_file: str, verbose: int = 0) -> Tuple[str, Optional[datetime]]:
     """Check the job status by looking at the ``STDOUT`` and ``STDERR`` files.
 
     Args:
@@ -167,7 +167,7 @@ def check_out_file_mark(job_out_file: str, job_err_file: str, verbose: int = 0) 
         ValueError: if STDERR file not found.
 
     Returns:
-        Tuple[str, datetime]: tuple containing:
+        Tuple[str, datetime | None]: tuple containing:
             -  str: job status.
             -  datetime: the ending time if completed, None otherwise.
     """
@@ -205,7 +205,9 @@ def check_out_file_mark(job_out_file: str, job_err_file: str, verbose: int = 0) 
     return status, end_date
 
 
-def check_job_status_bash(pid: int, job_out_file: str, job_err_file: str, verbose: int = 0) -> Tuple[str, datetime]:
+def check_job_status_bash(
+    pid: int, job_out_file: str, job_err_file: str, verbose: int = 0
+) -> Tuple[str, Optional[datetime]]:
     """Check job status ``bash``.
 
     Args:
@@ -220,15 +222,16 @@ def check_job_status_bash(pid: int, job_out_file: str, job_err_file: str, verbos
                 Defaults to 0.
 
     Returns:
-        Tuple[str, datetime]: tuple containing:
+        Tuple[str, datetime | None]: tuple containing:
             -  str: job status.
             -  datetime: the ending time if completed, None otherwise.
     """
     status = None
     end_date = None
     proc = Popen(["ps", f"{pid}"], stdout=PIPE, stderr=PIPE)
-    out, err = proc.communicate()
-    out = out.decode("utf8").split("\n")
+    out_bin, err_bin = proc.communicate()
+    out = out_bin.decode("utf8")
+    out = out.split("\n")  # type: ignore
     if verbose >= 3:
         message(f"ps {pid}", msg_type="d")
         for out_ in out:

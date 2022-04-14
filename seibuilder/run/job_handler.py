@@ -2,7 +2,7 @@
 import os
 import time
 from datetime import datetime
-from typing import Tuple
+from typing import Optional, Tuple, Union
 
 from IPython.display import clear_output
 
@@ -13,7 +13,7 @@ from .job_handler_utils import output_job_tail
 
 
 def write_script(
-    cmd: str or list,
+    cmd: Union[str, list],
     sim_id: str,
     slurm: bool = False,
     nodes: int = 1,
@@ -21,7 +21,7 @@ def write_script(
     ntasks_per_node: int = 1,
     cpus_per_task: int = None,
     ntasks_per_socket: int = None,
-    gres: int or str = None,
+    gres: Union[str, int] = None,
     script_path: str = None,
     job_settings: str = None,
     verbose: int = 0,
@@ -29,7 +29,7 @@ def write_script(
     """Write the JOB script file.
 
     Args:
-        cmd  (str or list): job commands.
+        cmd  (str | list): job commands.
         sim_id (str):  simulation id.
         slurm (bool, optional): [NotImplemented] if True will write a SLURM script. Defaults to False.
         nodes (int, optional): [NotImplemented] cores per node (equivalent to SLURM option ``--ntasks-per-node``).
@@ -43,7 +43,7 @@ def write_script(
             performance. (equivalent to SLURM option ``--cpus-per-task``). Defaults to None.
         ntasks_per_socket (int, optional): [NotImplemented] request the maximum ntasks be invoked on each socket
             (equivalent to SLURM option ``--ntasks-per-socket``). Defaults to None.
-        gres (intorstr, optional): [NotImplemented] specifies a comma-delimited list of generic consumable resources.
+        gres (int | str, optional): [NotImplemented] specifies a comma-delimited list of generic consumable resources.
             The format of each entry on the list is "name[[:type]:count]". (equivalent to SLURM option ``--gres``)
             Defaults to None.
         script_path (str, optional): _description_. Defaults to None.
@@ -113,7 +113,7 @@ def check_job_status(
     job_err_file: str,
     slurm: bool = True,
     verbose: int = 0,
-) -> Tuple[str, datetime]:
+) -> Tuple[str, Optional[datetime]]:
     """Check job status.
 
     Args:
@@ -132,7 +132,7 @@ def check_job_status(
         NotImplementedError: raise the error if you try to use it with SLURM Workload Manager.
 
     Returns:
-        Tuple[str, datetime]: tuple containing:
+        Tuple[str, datetime | None]: tuple containing:
             -  str: job status.
             -  datetime: the ending time if completed, None otherwise
     """

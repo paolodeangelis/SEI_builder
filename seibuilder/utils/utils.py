@@ -4,7 +4,7 @@ import shutil
 import time
 from datetime import datetime
 from io import TextIOWrapper
-from typing import Union
+from typing import Generator, Optional
 
 from .._constants import SLEEP_INTERVAL, TIME_FORMAT
 
@@ -49,9 +49,9 @@ def makedir(path: str, verbose: int = 1):
             -  3: print errors, warnings, info and debugger messages.
             Defaults to 1.
     """
-    path = path.split(os.sep)
-    for i in range(len(path)):
-        path_ = os.sep.join(path[: i + 1])
+    path_split = path.split(os.sep)
+    for i in range(len(path_split)):
+        path_ = os.sep.join(path_split[: i + 1])
         if path_ == "":
             continue
         if not os.path.isdir(path_):
@@ -63,7 +63,7 @@ def makedir(path: str, verbose: int = 1):
                 message(f"Folder {path_} already exist", msg_type="w")
 
 
-def pytail(file_path: str, n: int = 10, encoding: str = "utf8") -> Union[bool, list]:
+def pytail(file_path: str, n: int = 10, encoding: str = "utf8") -> Optional[list]:
     """Print last n lines from the file_path.
 
     Args:
@@ -72,8 +72,8 @@ def pytail(file_path: str, n: int = 10, encoding: str = "utf8") -> Union[bool, l
         encoding (str): Optional; character encoding (see: https://docs.python.org/3/howto/unicode.html)
 
     Returns:
-        Union[bool, list]: muliple possible output:
-            -  bool: False the file is empty
+        (list | None): muliple possible output:
+            -  None: The file is empty
             -  list: a list with the last lines.
     """
     avg_line_len = 100
@@ -101,10 +101,10 @@ def pytail(file_path: str, n: int = 10, encoding: str = "utf8") -> Union[bool, l
                 out += [out_b[i].decode(encoding)]
             return out
     except Exception:  # noqa: 722
-        return False
+        return None
 
 
-def pytail_follow(file_object: TextIOWrapper) -> str:
+def pytail_follow(file_object: TextIOWrapper) -> Generator[str, None, None]:
     """Recursive function to read and print last lines of a file.
 
     Args:
@@ -216,7 +216,7 @@ def are_we_in_a_notebook() -> bool:
             -  False: if is running in Python or IPython console.
     """
     try:
-        shell = get_ipython().__class__.__name__  # noqa
+        shell = get_ipython().__class__.__name__  # type: ignore # noqa
         if shell == "ZMQInteractiveShell":
             return True  # Jupyter notebook or qtconsole
         elif shell == "TerminalInteractiveShell":

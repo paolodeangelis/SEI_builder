@@ -9,7 +9,7 @@ import re
 import signal
 from collections import deque
 from contextlib import contextmanager
-from typing import Callable, List, Tuple
+from typing import Callable, List, Optional, Tuple, Union
 
 import numpy as np
 from ase.atoms import Atoms
@@ -54,7 +54,7 @@ def get_stable_crystal(chem_formula: str) -> Tuple[Atoms, Structure]:
     for id_ in mat:
         E.append(matprj.query(criteria={"task_id": id_}, properties=[propertie])[0][propertie])
     E = np.array(E)
-    idx = np.where(E == E.min())[0]
+    idx = np.where(E == E.min())[0]  # type: ignore
     # Gets stable structure
     structure = matprj.get_structure_by_material_id(mat[idx][0])
     # convert in ase
@@ -106,7 +106,7 @@ def from_d_to_grain(
     surfaces: list,
     surface_energies: list,
     maxiter: int = 20,
-    verbose: bool = False,
+    verbose: int = 0,
     tol: float = 0.05,
     timeout: int = 60,
 ) -> Tuple[int, float, float, float, Atoms]:  # TODO docstring
@@ -121,7 +121,7 @@ def from_d_to_grain(
         surfaces (list): _description_
         surface_energies (list): _description_
         maxiter (int, optional): _description_. Defaults to 20.
-        verbose (bool, optional): _description_. Defaults to False.
+        verbose (int, optional): _description_. Defaults to False.
         tol (float, optional): _description_. Defaults to 0.05.
         timeout (int, optional): _description_. Defaults to 60.
 
@@ -217,11 +217,11 @@ def random_sei_grains(
     random_sampler: List[Callable],
     species_fraction_tol: float = 0.005,
     Ngrains_max: int = None,
-    report: str or None = None,
-    cutting_planes: list or None = None,
+    report: Optional[str] = None,
+    cutting_planes: Optional[list] = None,
     n_planes: int = 2,
     seed: int = None,
-) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, List[Atoms]]:  # TODO `random_sei_grains` docstring
+) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray[Atoms]]:  # TODO `random_sei_grains` docstring
     """Get the different grains knowing the size distribution, cutting planes, and molar fraction.
 
     The function random generates a grain knowing the crystal unit cell and the grain size distribution.
@@ -237,9 +237,9 @@ def random_sei_grains(
         species_fraction_tol (float, optional): tolerance for final molar fraction. Defaults to 0.005.
         Ngrains_max (int, optional): Max number of atoms for each grain, if None will be set as 1/10 of ``Natoms``.
             Defaults to None.
-        report (str or None, optional): report ``.csv`` file name. If None, the report will be saved in the file
+        report (str | None, optional): report ``.csv`` file name. If None, the report will be saved in the file
             ``report_grains_sei.csv``. Defaults to None.
-        cutting_planes (list or None, optional): _description_. Defaults to None.
+        cutting_planes (list | None, optional): _description_. Defaults to None.
         n_planes (int, optional): number of planes to randomly choose from ``cutting_planes``. Defaults to 2.
         seed (int, optional): random state seed for the random number generator. Defaults to None.
 
@@ -253,14 +253,14 @@ def random_sei_grains(
                an array containing grain volume computed as the "convex hull" volume from the atoms' positions.
             -  NumPy.ndarray:
                array with the final molar fraction for each cristal.
-            -  List[Atoms]:
+            -  NumPy.ndarray[Atoms]:
                a list containing ASE.Atoms are the random grains generated.
     """
     if Ngrains_max is None:
         Ngrains_max = Natoms // 10
 
-    if species_fractions.sum() > 1.0:
-        species_fractions = species_fractions / species_fractions.sum()
+    if species_fractions.sum() > 1.0:  # type: ignore
+        species_fractions = species_fractions / species_fractions.sum()  # type: ignore
 
     if report is None:
         report = "report_grains_sei.csv"
@@ -279,7 +279,7 @@ def random_sei_grains(
     rg.standard_normal()
 
     # Inizialization
-    out_grains = deque()  # faster access memory if you append a lot
+    out_grains = deque()  # type: ignore # faster access memory if you append a lot
     out_vol = np.zeros(Ngrains_max, dtype=float)
     out_d = np.zeros(Ngrains_max, dtype=float)
     out_species = np.zeros(Ngrains_max, dtype=int)
@@ -378,7 +378,7 @@ def random_sei_grains(
             break
     message(" " * 150, end="\r", msg_type="i", add_date=True)
     message("END", end="\n", msg_type="i", add_date=True)
-    out_grains = list(out_grains)[:i]
+    out_grains = list(out_grains)[:i]  # type: ignore
     out_grains = np.array(out_grains, dtype=object)
     # # additional schuffle
     # rg.shuffle(out_grains)
@@ -399,8 +399,8 @@ def _minmax_rescale(array):
     return (array - array.min()) / (array.max() - array.min())
 
 
-def _compute_neighborlist(system: Atoms, cutoff: float = 7.5) -> list:
-    nl_list = deque()  # faster access memory if you append a lot
+def _compute_neighborlist(system: Atoms, cutoff: float = 7.5) -> deque:
+    nl_list = deque()  # type: ignore # faster access memory if you append a lot
     tot_indices = np.arange(len(system))
     for ai in range(len(system)):
         distances = system.get_distances(ai, tot_indices, mic=False)
@@ -409,7 +409,7 @@ def _compute_neighborlist(system: Atoms, cutoff: float = 7.5) -> list:
     return nl_list
 
 
-def _compute_score_coordination(neighborlist: list or deque) -> np.ndarray:
+def _compute_score_coordination(neighborlist: Union[list, deque]) -> np.ndarray:
     score = np.array([len(nl_) for nl_ in neighborlist])
     score = _minmax_rescale(score)
     return score
