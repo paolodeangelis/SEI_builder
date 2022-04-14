@@ -83,7 +83,7 @@ jobs:
     - name: nbQA flake8 report
       continue-on-error: true
       run: |
-        for f in $(ls *.ipynb); do nbqa flake8 $f ; done
+        for f in $(ls *.ipynb); do nbqa flake8 --ignore=E402 $f ; done
 
     - name: nbQA isort report
       continue-on-error: true
