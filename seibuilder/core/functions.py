@@ -102,32 +102,38 @@ def _timeout_contex(time):
 
 def from_d_to_grain(
     d: np.ndarray,
-    generator: np.random.Generator,
-    surfaces: list,
+    generator: Structure,
+    planes: list,
     surface_energies: list,
     maxiter: int = 20,
-    verbose: int = 0,
     tol: float = 0.05,
     timeout: int = 60,
-) -> Tuple[int, float, float, float, Atoms]:  # TODO docstring
-    """
-    _summary_ .
-
-    _description_.
+    verbose: int = 0,
+) -> Tuple[int, float, float, float, Atoms]:
+    """Get iterative the closest grain given a characteristic size.
 
     Args:
-        d (np.ndarray): _description_
-        generator (np.random.Generator): _description_
-        surfaces (list): _description_
-        surface_energies (list): _description_
-        maxiter (int, optional): _description_. Defaults to 20.
-        verbose (int, optional): _description_. Defaults to False.
-        tol (float, optional): _description_. Defaults to 0.05.
-        timeout (int, optional): _description_. Defaults to 60.
+        d (np.ndarray): target characteristic size
+        generator (pymatgen.Structure): pymatgen.Structure represents the crystal unit cells.
+        planes (list): List of Miller indices corresponding to the cutting planes to use.
+        surface_energies (list): surface energy corresponds to each `planes`
+        maxiter (int, optional): maximum iteration number for the secant algorithm. Defaults to 20.
+        tol (float, optional): convergence tolerance. Defaults to 0.05.
+        timeout (int, optional): max waiting time in seconds. Defaults to 60.
+        verbose (int, optional): loudness controller:
+            -  0: print errors
+            -  1: print errors and warnings
+            -  2: print errors, warnings and info
+            -  3: print errors, warnings, info and debugger messages. Defaults to 2.
 
     Returns:
-        (tuple): tuple containing:
-            Tuple[int, float, float, float, Atoms]: _description_
+        Tuple[int, float, float, float, Atoms]: tuple containing:
+            Tuple[int, float, float, float, Atoms]: tuple containg:
+                -  int: number of atoms for the optimal grain
+                -  float: grain volume
+                -  float: grain caracteristic lenght
+                -  float: maximum radium
+                -  ASE.Atoms: computed grain
     """
     rmax_i = [d / 2, d / 2]
     d_i = [0, 0]
@@ -136,7 +142,7 @@ def from_d_to_grain(
     with _timeout_contex(timeout):
         while i < maxiter:
             # generate cluster
-            grain = Nanoparticle(generator, rmax=rmax_i[1], hkl_family=surfaces, surface_energies=surface_energies)
+            grain = Nanoparticle(generator, rmax=rmax_i[1], hkl_family=planes, surface_energies=surface_energies)
             grain.create()
             grain = matget2ase.get_atoms(grain)
             vol = _convex_hull_volume(grain.positions)
@@ -190,7 +196,7 @@ def get_gcd_pedices(formula: str) -> int:
         formula (str): empirical chemical formula (e.g. Glucose: C6H12O6 ).
 
     Returns:
-        ing: the greatest common divisor from number of each atom type.
+        int: the greatest common divisor from number of each atom type.
     """
     pedices = re.findall("[0-9]+", formula)
     pedices = [int(i) for i in pedices]
@@ -239,7 +245,8 @@ def random_sei_grains(
             Defaults to None.
         report (str | None, optional): report ``.csv`` file name. If None, the report will be saved in the file
             ``report_grains_sei.csv``. Defaults to None.
-        cutting_planes (list | None, optional): _description_. Defaults to None.
+        cutting_planes (list | None, optional): list of Miller indices corresponding to the cutting planes to use.
+        Defaults to None.
         n_planes (int, optional): number of planes to randomly choose from ``cutting_planes``. Defaults to 2.
         seed (int, optional): random state seed for the random number generator. Defaults to None.
 
