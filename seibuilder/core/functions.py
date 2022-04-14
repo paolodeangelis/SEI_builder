@@ -4,6 +4,7 @@ This is the SEI builder functions module.
 It contains functions for getting SEI's salts crystal unit cells, building grains,
 and identifying the atoms at the boundary.
 """
+import copy
 import re
 import signal
 from collections import deque
@@ -11,8 +12,6 @@ from contextlib import contextmanager
 from typing import Callable, List, Tuple
 
 import numpy as np
-
-# import pyscal.core as pc # TODO remobe pyscal
 from ase.atoms import Atoms
 from numpy.random import PCG64, Generator
 from pymatgen import Structure
@@ -400,58 +399,56 @@ def _minmax_rescale(array):
     return (array - array.min()) / (array.max() - array.min())
 
 
-def _compute_score_coordination(system):
-    atoms = system.atoms
-    score = np.array([atom.coordination for atom in atoms])
+def _compute_neighborlist(system: Atoms, cutoff: float = 7.5) -> list:
+    nl_list = deque()  # faster access memory if you append a lot
+    tot_indices = np.arange(len(system))
+    for ai in range(len(system)):
+        distances = system.get_distances(ai, tot_indices, mic=False)
+        indices = np.where(distances <= cutoff)[0]
+        nl_list.append(indices)
+    return nl_list
+
+
+def _compute_score_coordination(neighborlist: list or deque) -> np.ndarray:
+    score = np.array([len(nl_) for nl_ in neighborlist])
     score = _minmax_rescale(score)
     return score
 
 
-def _compute_score_steinhardt(system):
-    system.calculate_q([6])
-    score = np.array(system.get_qvals(6))
-    score = 1 - _minmax_rescale(score)
-    return score
+# def _compute_score_steinhardt(system):
+#     system.calculate_q([6])
+#     score = np.array(system.get_qvals(6))
+#     score = 1 - _minmax_rescale(score)
+#     return score
 
 
 # TODO Get rid of pyscal
-# def get_bulk_atoms(
-#     cluster, strategy="coordination", method="cutoff", threshold=0.6, cutoff=5.0, **kwarg
-# ):
-#     """_summary_ .
+def get_bulk_atoms(atoms: Atoms, threshold: float = 0.6, cutoff: float = 7.5) -> Tuple[np.ndarray, np.ndarray]:
+    """Identify the atoms in bulk or at the surface.
 
-#     _description_.
+    Args:
+        atoms (Atoms): system to analyze as ASE.Atoms object.
+        threshold (float, optional): relative coordination threshold.
+            If the scaled coordination number of atoms is above the threshold is identified
+            as a bulk atom. Defaults to 0.6.
+        cutoff (float, optional): cutoff radius for each atom. Defaults to 7.5.
 
-#     Args:
-#         cluster (_type_): _description_
-#         strategy (str, optional): _description_. Defaults to "coordination".
-#         method (str, optional): _description_. Defaults to "cutoff".
-#         threshold (float, optional): _description_. Defaults to 0.6.
-#         cutoff (float, optional): _description_. Defaults to 5.0.
-
-#     Raises:
-#         ValueError: _description_
-
-#     Returns:
-#         _type_: _description_
-#     """
-#     temp_ase = copy.deepcopy(cluster)
-#     temp = pc.System()
-#     # Convert to pystacal.core.System
-#     if np.all(temp_ase.get_cell() == 0):
-#         temp_ase.set_cell([1e99, 1e99, 1e99])
-#     temp.read_inputfile(temp_ase, format="ase")
-#     # Get neighbors
-#     temp.find_neighbors(method=method, cutoff=cutoff, **kwarg)
-#     # Get score
-#     if strategy.lower() == "coordination":
-#         score = _compute_score_coordination(temp)
-#     elif strategy.lower() == "steinhardt":
-#         score = _compute_score_steinhardt(temp)
-#     else:
-#         raise ValueError(f"{strategy} is not a valid strategy.")
-#     bulk_atoms = score > threshold
-#     return bulk_atoms, score
+    Returns:
+        Tuple[Numpy.ndarray, Numpy.ndarray]: tuple containing:
+            -  Numpy.ndarray:
+               boolean array with True the bulk atoms and False the surface atoms.
+            -  Numpy.ndarray :
+               an array containing the scaled coordination number.
+    """
+    temp_ase = copy.deepcopy(atoms)
+    # check cell
+    if np.all(temp_ase.get_cell() == 0):
+        temp_ase.set_cell([1e99, 1e99, 1e99])
+    # Get neighbors
+    neighborlist = _compute_neighborlist(temp_ase, cutoff=cutoff)
+    score = _compute_score_coordination(neighborlist)
+    bulk_atoms = score > threshold
+    return bulk_atoms, score
 
 
 def _find_nearest(arr, value):

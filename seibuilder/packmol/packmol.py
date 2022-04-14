@@ -290,7 +290,7 @@ def load_packmol_output(structures: List[PackmolStructure], verbose: int = 0):
             -  3: print errors, warnings, info and debugger messages. Defaults to 2. Defaults to 0.
 
     Returns:
-        ASE.Atoms: final system with additiona info in the property ``array``.
+        ASE.Atoms: final system with additiona info in the property ``Atoms.info``.
     """
     waiting = True
     while waiting:
@@ -305,9 +305,9 @@ def load_packmol_output(structures: List[PackmolStructure], verbose: int = 0):
     # positions = atoms.get_positions()
     # system = Atoms(symbols=symbols, positions=positions)
     # save parents
-    atoms.arrays["parents"] = _get_parents(structures, verbose=verbose)
+    atoms.info["parents"] = _get_parents(structures, verbose=verbose)
     # copy residue
-    atoms.arrays["resname"] = _get_resname(verbose=verbose)
+    atoms.info["resname"] = _get_resname(verbose=verbose)
     return atoms
 
 

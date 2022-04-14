@@ -44,7 +44,8 @@ repos:
       - id: nbqa-pyupgrade
         args: [--py36-plus]
       - id: nbqa-isort
-#      - id: nbqa-flake8
+      - id: nbqa-flake8
+        args: [--ignore=E402]
 
   - repo: https://gitlab.com/pycqa/flake8
     rev: 3.9.2
