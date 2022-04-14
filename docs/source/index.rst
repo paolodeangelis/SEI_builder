@@ -16,8 +16,8 @@
      :alt: License - GNU GPLv3
 
 .. TODO change the DOI
-.. image:: http://img.shields.io/badge/DOI-to%20define-blue.svg
-   :target: http://img.shields.io/badge/DOI-to%20define-blue.svg
+.. image:: http://img.shields.io/badge/DOI-to%20be%20define-blue.svg
+   :target: http://img.shields.io/badge/DOI-to%20be%20define-blue.svg
 
 SEI Builder
 ===========
