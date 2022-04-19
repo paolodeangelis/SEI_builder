@@ -9,7 +9,7 @@ from .core.functions import (  # get_bulk_atoms, # TODO fix get_bulk_atoms
     random_sei_grains,
 )
 
-__version__ = "0.1.dev"
+__version__ = "0.1.0"
 __copyright__ = "2022, SMaLL Team"
 __author__ = "Paolo De Angelis, Roberta Cappabianca and Eliodoro Chiavazzo"
 
