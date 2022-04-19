@@ -3,7 +3,7 @@ my-big-map-app:
     title: SEI Builder
     description: |
         This app is an ASE-base workflow used to reproduce a rational initial SEI morphology at the atomic scale by stochastically placing the crystal grains of the inorganic salts formed during the SEI's reaction.
-    authors: P. De Angelis, R. Cappabianca, E. Chiavazzo
+    authors: P. De Angelis, R. Cappabianca, P. Asinari, E. Chiavazzo
     external_url: https://github.com/paolodeangelis/SEI_builder
     documentation_url: https://sei-builder.readthedocs.io
     logo: https://github.com/paolodeangelis/SEI_builder/blob/main/img/logo.png

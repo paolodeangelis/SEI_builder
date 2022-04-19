@@ -64,7 +64,7 @@ If you use the SEI Builder for your work, please cite this repository:
 
          @misc{MPInterface,
          title        = {SEI Builder - Jupyter notebooks to build inital SEI morphology.},
-         author       = {De Angelis, Paolo  and Cappabianca, Roberta and Chiavazzo, Eliodoro},
+         author       = {De Angelis, Paolo and Cappabianca, Roberta and Asinari, Pietro and Chiavazzo, Eliodoro},
          year         = 2022,
          publisher    = {GitHub},
          journal      = {GitHub repository},
@@ -82,6 +82,7 @@ If you use the SEI Builder for your work, please cite this repository:
          TY  - COMP
          AU  - De Angelis, Paolo
          AU  - Cappabianca, Roberta
+         AU  - Asinari, Pietro
          AU  - Chiavazzo, Eliodoro
          DA  - 2022///
          DO  - 10.5281/zenodo.2554262  .. TODO change the DOI
@@ -116,6 +117,8 @@ Authors
 Paolo De Angelis
 
 Roberta Cappabianca
+
+Pietro Asinari
 
 Eliodoro Chiavazzo
 
