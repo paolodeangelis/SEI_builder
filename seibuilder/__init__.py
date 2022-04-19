@@ -1,6 +1,6 @@
 """SEI Builder package with fuctions used in the jupyter."""
 
-from .core.functions import (  # get_bulk_atoms, # TODO fix get_bulk_atoms
+from .core.functions import (
     _find_nearest,
     from_d_to_grain,
     get_bulk_atoms,

@@ -15,9 +15,8 @@
 ..      :target: https://github.com/paolodeangelis/SEI_builder/blob/main/LICENSE
 ..      :alt: License - GNU GPLv3
 
-.. TODO change the DOI
-.. image:: http://img.shields.io/badge/DOI-to%20be%20define-blue.svg
-   :target: http://img.shields.io/badge/DOI-to%20be%20define-blue.svg
+.. image:: https://zenodo.org/badge/479131818.svg
+   :target: https://zenodo.org/badge/latestdoi/479131818
 
 SEI Builder
 ===========
@@ -70,7 +69,7 @@ If you use the SEI Builder for your work, please cite this repository:
          journal      = {GitHub repository},
          howpublished = {\url{https://github.com/paolodeangelis/SEI_builder}},
          url          = {https://github.com/paolodeangelis/SEI_builder},
-         doi          = {10.5281/zenodo.2554262}  .. TODO change the DOI
+         doi          = {10.5281/zenodo.6470785}
          }
 
    .. tab:: RIS
@@ -85,7 +84,7 @@ If you use the SEI Builder for your work, please cite this repository:
          AU  - Asinari, Pietro
          AU  - Chiavazzo, Eliodoro
          DA  - 2022///
-         DO  - 10.5281/zenodo.2554262  .. TODO change the DOI
+         DO  - 10.5281/zenodo.6470785
          ID  - MPInterface
          LB  - MPInterface
          PB  - GitHub

@@ -429,7 +429,6 @@ def _compute_score_coordination(neighborlist: Union[list, deque]) -> np.ndarray:
 #     return score
 
 
-# TODO Get rid of pyscal
 def get_bulk_atoms(atoms: Atoms, threshold: float = 0.6, cutoff: float = 7.5) -> Tuple[np.ndarray, np.ndarray]:
     """Identify the atoms in bulk or at the surface.
 

@@ -63,10 +63,7 @@ A set of Jupyter notebooks to build and study battery aging.
 </p>
 
 <p align="center">
-    <a target="_blank" href="http://img.shields.io/badge/DOI-to%20be%20define-blue.svg"><img
-		alt="DOI"
-		src="http://img.shields.io/badge/DOI-to%20be%20define-blue.svg">
-    </a>
+    <a target="_blank" href="https://zenodo.org/badge/latestdoi/479131818"><img src="https://zenodo.org/badge/479131818.svg" alt="DOI"></a>
 </p>
 
 ## Table of contents
