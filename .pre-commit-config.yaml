@@ -15,7 +15,7 @@ repos:
       - id: check-shebang-scripts-are-executable
         exclude: mpinterfaces_setup.py
 
-  - repo: https://github.com/timothycrosley/isort
+  - repo: https://github.com/PyCQA/isort
     rev: 5.10.1
     hooks:
       - id: isort
@@ -47,14 +47,14 @@ repos:
       - id: nbqa-flake8
         args: [--ignore=E402]
 
-  - repo: https://gitlab.com/pycqa/flake8
-    rev: 3.9.2
+  - repo: https://github.com/PyCQA/flake8
+    rev: 4.0.1
     hooks:
       - id: flake8
         additional_dependencies: [flake8-isort, flake8-builtins, flake8-docstrings] # [flake8-isort, flake8-docstrings]
         exclude:  ^seibuilder/mpinterfaces/
 
   -   repo: https://github.com/pre-commit/mirrors-mypy
-      rev: 'v0.942'  # Use the sha / tag you want to point at
+      rev: 'v0.950'  # Use the sha / tag you want to point at
       hooks:
       -   id: mypy
