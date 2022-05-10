@@ -19,13 +19,10 @@ A set of Jupyter notebooks to build and study battery aging.
         src="https://img.shields.io/badge/Jupyter%20Lab-3.x-orange?logo=jupyter&logoColor=white"
         alt="Jupyter friendly" />
     </a>
-    <!---
-    # TODO set LICENSE
     <a target="_blank" href="/LICENSE"><img
-        src="https://img.shields.io/badge/license-GNU%20AGPLv3-green"
-        alt="License - GNU AGPLv3" />
+        src="https://img.shields.io/badge/license-MIT-green"
+        alt="License - MIT" />
     </a>
-    -->
     <a target="_blank" href="https://www.linux.org/"><img
         src="https://img.shields.io/badge/OS-Linux-lightgray?logo=linux&amp;logoColor=white"
         alt="OS - Linux" />
