@@ -217,17 +217,18 @@ There is a lot to do:
 But first read the [**Contributing guidelines**](CONTRIBUTING.md).
 --->
 
-<!---
-# TODO set LICENSE
+<!-- # TODO set LICENSE -->
 ## 🚩 License
 The code is available under the [MIT license](LICENSE).
---->
 
 ## 🎖️️️ [CREDITS](CREDITS.md)
 
+## Acknowledgements
+
+This project has received funding from the European Union’s [Horizon 2020 research and innovation programme](https://ec.europa.eu/programmes/horizon2020/en) under grant agreement [No 957189](https://cordis.europa.eu/project/id/957189).
+
 <hr width="100%">
 <p align="right">
-    <em><strong>Acknowledgements:</strong></em>
     &nbsp;
     <a target="_blank" href="https://www.big-map.eu/">
         <img style="height:40px" src="img//logo-bigmap.png" alt="BIG MAP site" >
