@@ -21,13 +21,13 @@ repos:
       - id: isort
 
   - repo: https://github.com/asottile/pyupgrade
-    rev:  v2.37.3
+    rev:  v3.1.0
     hooks:
     -   id: pyupgrade
         args: [--py36-plus]
 
   - repo: https://github.com/psf/black
-    rev: 22.8.0
+    rev: 22.10.0
     hooks:
       - id: black
 
@@ -38,7 +38,7 @@ repos:
         additional_dependencies: [black==21.9b0]
 
   - repo: https://github.com/nbQA-dev/nbQA
-    rev: 1.4.0
+    rev: 1.5.3
     hooks:
       - id: nbqa-black
       - id: nbqa-pyupgrade
@@ -55,6 +55,6 @@ repos:
         exclude:  ^seibuilder/mpinterfaces/
 
   -   repo: https://github.com/pre-commit/mirrors-mypy
-      rev: 'v0.971'  # Use the sha / tag you want to point at
+      rev: 'v0.982'  # Use the sha / tag you want to point at
       hooks:
       -   id: mypy
