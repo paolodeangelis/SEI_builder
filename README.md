@@ -73,15 +73,16 @@ A set of Jupyter notebooks to build and study battery aging.
 
 -   [🚀 Usage](#-examples)
     -   [Start `JupyterLab`](#start-jupyterlab)
-    -   [Run the workflow](#Run-the-workflow)
+    -   [Run the workflow](#run-the-workflow)
 
 -   [🤝 Contributing](#-contributing)
 
--   [🎖️️️ CREDITS](#-creditscreditsmd)
-<!---
-# TODO set LICENSE
 -   [🚩 License](#-license)
---->
+
+-   [🎖️️️ CREDITS](#-creditscreditsmd)
+
+-   [Acknowledgements](#acknowledgements)
+
 
 ## 🎉 Installation
 
@@ -226,6 +227,7 @@ The code is available under the [MIT license](LICENSE).
 ## Acknowledgements
 
 This project has received funding from the European Union’s [Horizon 2020 research and innovation programme](https://ec.europa.eu/programmes/horizon2020/en) under grant agreement [No 957189](https://cordis.europa.eu/project/id/957189).
+The project is part of [BATTERY 2030+](https://battery2030.eu/), the large-scale European research initiative for inventing the sustainable batteries of the future.
 
 <hr width="100%">
 <p align="right">
