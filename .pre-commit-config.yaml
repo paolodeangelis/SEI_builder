@@ -55,6 +55,6 @@ repos:
         exclude:  ^seibuilder/mpinterfaces/
 
   -   repo: https://github.com/pre-commit/mirrors-mypy
-      rev: 'v1.2.0'  # Use the sha / tag you want to point at
+      rev: 'v1.3.0'  # Use the sha / tag you want to point at
       hooks:
       -   id: mypy
