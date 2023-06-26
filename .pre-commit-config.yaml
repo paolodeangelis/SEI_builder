@@ -21,7 +21,7 @@ repos:
       - id: isort
 
   - repo: https://github.com/asottile/pyupgrade
-    rev:  v3.4.0
+    rev:  v3.7.0
     hooks:
     -   id: pyupgrade
         args: [--py36-plus]
@@ -32,7 +32,7 @@ repos:
       - id: black
 
   - repo: https://github.com/asottile/blacken-docs
-    rev: 1.13.0
+    rev: 1.14.0
     hooks:
     -   id: blacken-docs
         additional_dependencies: [black==23.3.0]
@@ -55,6 +55,6 @@ repos:
         exclude:  ^seibuilder/mpinterfaces/
 
   -   repo: https://github.com/pre-commit/mirrors-mypy
-      rev: 'v1.3.0'  # Use the sha / tag you want to point at
+      rev: 'v1.4.1'  # Use the sha / tag you want to point at
       hooks:
       -   id: mypy
