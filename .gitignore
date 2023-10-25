@@ -146,3 +146,5 @@ packmol.inp
 resname.tmp
 run_packmol.sh
 PACKMOL_MOL_input*
+.venv*
+venv*
