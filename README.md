@@ -20,8 +20,8 @@ A set of Jupyter notebooks to build and study battery aging.
         alt="Jupyter friendly" />
     </a>
     <a target="_blank" href="/LICENSE"><img
-        src="https://img.shields.io/badge/license-MIT-green"
-        alt="License - MIT" />
+        src="https://img.shields.io/badge/license-CC--BY%204.0-lightgray"
+        alt="License - CC-BY 4.0" />
     </a>
     <a target="_blank" href="https://www.linux.org/"><img
         src="https://img.shields.io/badge/OS-Linux-lightgray?logo=linux&amp;logoColor=white"
@@ -166,6 +166,24 @@ conda activate venv_sei
 ```
 </details>
 
+### <a name="install-packmol" />  Install `packmol`
+
+Inside the code we use the code `Packmol` by  [Martínez et al.](https://doi.org/10.1002/jcc.21224)
+
+1. Clone from repository
+
+```shell-session
+git clone https://github.com/m3g/packmol.git
+```
+
+1. Compile it
+
+```shell-session
+$ cd packmol
+$ make
+```
+
+
 ### <a name="configure-mpinterface" /> Configure `MPInterface`
 
 #### Get *Material Project* API key
@@ -220,7 +238,7 @@ But first read the [**Contributing guidelines**](CONTRIBUTING.md).
 
 <!-- # TODO set LICENSE -->
 ## 🚩 License
-The code is available under the [MIT license](LICENSE).
+The code is available under the [Creative Commons Attribution 4.0 International License][cc-by].
 
 ## 🎖️️️ [CREDITS](CREDITS.md)
 
@@ -231,6 +249,7 @@ The project is part of [BATTERY 2030+](https://battery2030.eu/), the large-scale
 
 <hr width="100%">
 <p align="right">
+    <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons Licence" style="border-width:0; height:35px" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a>
     &nbsp;
     <a target="_blank" href="https://www.big-map.eu/">
         <img style="height:40px" src="img//logo-bigmap.png" alt="BIG MAP site" >
@@ -244,3 +263,11 @@ The project is part of [BATTERY 2030+](https://battery2030.eu/), the large-scale
         <img style="height:40px" src="img//logo-polito.png" alt="POLITO site" >
     </a>
 </p>
+
+<!-- [![CC BY 4.0][cc-by-image]][cc-by] -->
+
+[cc-by]: http://creativecommons.org/licenses/by/4.0/
+
+[cc-by-image]: https://i.creativecommons.org/l/by/4.0/88x31.png
+
+[cc-by-shield]: https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg
