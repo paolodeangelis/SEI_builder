@@ -137,7 +137,7 @@ jupyter labextension list
 if the line `nglview-js-widgets v3.0.1 enabled OK` is missing, run the following command:
 
 ```shell
-$ pip install --force-reinstall nglview
+pip install --force-reinstall nglview
 ```
 
 </details>
@@ -179,8 +179,8 @@ git clone https://github.com/m3g/packmol.git
 1. Compile it
 
 ```shell-session
-$ cd packmol
-$ make
+cd packmol
+make
 ```
 
 
