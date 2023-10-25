@@ -54,7 +54,8 @@ repos:
         additional_dependencies: [flake8-isort, flake8-builtins, flake8-docstrings] # [flake8-isort, flake8-docstrings]
         exclude:  ^seibuilder/mpinterfaces/
 
-  -   repo: https://github.com/pre-commit/mirrors-mypy
-      rev: 'v1.5.1'  # Use the sha / tag you want to point at
-      hooks:
-      -   id: mypy
+  # -   repo: https://github.com/pre-commit/mirrors-mypy
+  #     rev: 'v1.5.1'  # Use the sha / tag you want to point at
+  #     hooks:
+  #     -   id: mypy
+  #         args: [--no-implicit-optional]

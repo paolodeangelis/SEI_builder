@@ -40,8 +40,11 @@ if MPINT_CONFIG.get("potentials", ""):
 MP_API = MPINT_CONFIG.get("mp_api", "")
 if MP_API:
     os.environ["MAPI_KEY"] = MP_API
-
-MPR = MPRester(MP_API)
+try:
+    MPR = MPRester(MP_API)
+except ValueError:
+    MPR = None
+    warnings.warn("mpint_config.yaml file not configured.")
 USERNAME = MPINT_CONFIG.get("username", None)
 VASP_STD_BIN = MPINT_CONFIG.get("normal_binary", None)
 VASP_TWOD_BIN = MPINT_CONFIG.get("twod_binary", None)

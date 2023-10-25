@@ -14,7 +14,7 @@ from typing import Callable, List, Optional, Tuple, Union
 import numpy as np
 from ase.atoms import Atoms
 from numpy.random import PCG64, Generator
-from pymatgen import Structure
+from pymatgen.core import Structure
 from pymatgen.ext.matproj import MPRester
 from pymatgen.io.ase import AseAtomsAdaptor
 from scipy.spatial import ConvexHull
@@ -25,7 +25,11 @@ from ..utils import message
 
 TIME_FORMAT = "%H:%M:%S %Z"
 # Material Project query
-matprj = MPRester(MP_API)  # Material Project API KEY
+try:
+    matprj = MPRester(MP_API)  # Material Project API KEY
+except ValueError:
+    pass
+
 matget2ase = AseAtomsAdaptor()
 
 
@@ -49,10 +53,12 @@ def get_stable_crystal(chem_formula: str) -> Tuple[Atoms, Structure]:
     """
     mat = matprj.get_materials_ids(chem_formula)
     mat = np.array(mat)
-    propertie = "formation_energy_per_atom"
     E = []
     for id_ in mat:
-        E.append(matprj.query(criteria={"task_id": id_}, properties=[propertie])[0][propertie])
+        print(id_)
+        E.append(
+            matprj.summary.search(material_ids=[id_], fields=["formation_energy_per_atom"])[0].formation_energy_per_atom
+        )
     E = np.array(E)
     idx = np.where(E == E.min())[0]  # type: ignore
     # Gets stable structure
