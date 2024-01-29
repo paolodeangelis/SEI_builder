@@ -4,6 +4,7 @@ This is the SEI builder functions module.
 It contains functions for getting SEI's salts crystal unit cells, building grains,
 and identifying the atoms at the boundary.
 """
+
 import copy
 import re
 import signal
@@ -213,9 +214,7 @@ def _print_imposible_grain_warning(grain_id, specie_formula, d_guess, V_guess, s
     message(" " * 150, end="\r", msg_type="i", add_date=True)
     message(
         "Was impossible build a grain particle ({:d}) of specie {:s} with target lenght {:.2f} AA and volume"
-        " {:.2f} AA^3 and surface ".format(grain_id, specie_formula, d_guess, V_guess)
-        + str(surfaces)
-        + str(esurf),
+        " {:.2f} AA^3 and surface ".format(grain_id, specie_formula, d_guess, V_guess) + str(surfaces) + str(esurf),
         end="\n",
         msg_type="w",
         add_date=True,
