@@ -148,3 +148,4 @@ run_packmol.sh
 PACKMOL_MOL_input*
 .venv*
 venv*
+_test.ipynb

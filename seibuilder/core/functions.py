@@ -13,9 +13,9 @@ from typing import Callable, List, Optional, Tuple, Union
 
 import numpy as np
 from ase.atoms import Atoms
+from mp_api.client import MPRester
 from numpy.random import PCG64, Generator
 from pymatgen.core import Structure
-from pymatgen.ext.matproj import MPRester
 from pymatgen.io.ase import AseAtomsAdaptor
 from scipy.spatial import ConvexHull
 
@@ -31,6 +31,34 @@ except ValueError:
     pass
 
 matget2ase = AseAtomsAdaptor()
+
+
+def get_materials_ids(formula: str) -> List[str]:
+    """Given a chemical formula retrive the MP ids.
+
+    Args:
+        formula (str): Chemical formulas
+
+    Returns:
+        List[str]: list of MP ids with that specific chemical formula
+    """
+    docs = matprj.materials.summary.search(formula=formula, fields=["material_id"])
+    mp_ids = [str(m.material_id) for m in docs]
+    return mp_ids
+
+
+def get_structure_by_material_id(material_ids: List[str]) -> List[Structure]:
+    """Given a list of the MP ids it retrive the associated Stucture.
+
+    Args:
+        material_ids (List[str]): List of MP ids
+
+    Returns:
+        List[Structure]: List containg the structures
+    """
+    docs = matprj.materials.summary.search(material_ids=material_ids, fields=["structure"])
+    structures = [m.structure for m in docs]
+    return structures
 
 
 def get_stable_crystal(chem_formula: str) -> Tuple[Atoms, Structure]:
@@ -51,18 +79,20 @@ def get_stable_crystal(chem_formula: str) -> Tuple[Atoms, Structure]:
             -  Atoms:
                crystal unit as ASE object
     """
-    mat = matprj.get_materials_ids(chem_formula)
+    mat = get_materials_ids(chem_formula)
     mat = np.array(mat)
     E = []
     for id_ in mat:
-        print(id_)
+        # print(id_)
         E.append(
-            matprj.summary.search(material_ids=[id_], fields=["formation_energy_per_atom"])[0].formation_energy_per_atom
+            matprj.materials.summary.search(material_ids=[id_], fields=["formation_energy_per_atom"])[
+                0
+            ].formation_energy_per_atom
         )
     E = np.array(E)
     idx = np.where(E == E.min())[0]  # type: ignore
     # Gets stable structure
-    structure = matprj.get_structure_by_material_id(mat[idx][0])
+    structure = get_structure_by_material_id(mat[idx])[0]
     # convert in ase
     structure_ase = matget2ase.get_atoms(structure)
     return structure, structure_ase

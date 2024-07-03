@@ -6,3 +6,4 @@ pymatgen==2023.8.10
 nglview==3.0.8
 scikit-learn~=0.22.2.post1
 scipy~=1.5.2
+mp_api~=0.35.1
