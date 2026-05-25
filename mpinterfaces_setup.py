@@ -29,8 +29,7 @@ def write_yaml(mpi_config_yaml, api_key=None):  # noqa: D103
     if api_key is None:
         api_key = "null"
     with open(mpi_config_yaml, "w") as file_:
-        file_.write(
-            f"""username: null  # your UF HPC username
+        file_.write(f"""username: null  # your UF HPC username
 mp_api: {api_key}  # your Materials Project API key
 normal_binary: null # /path/to/std/vasp/executable
 twod_binary: null  # /path/to/2D/vasp/executable
@@ -38,8 +37,7 @@ vdw_kernel: null   # /path/to/vdw_kernel.bindat  (leave as null if the kernel is
 potentials: null  # /path/to/POTCAR/files
 queue_system: slurm  # Change to pbs if on a PBS system
 queue_template: config_files/ # path/to/queue/template containing account info, processor config 'submit_script'
-                """
-        )
+                """)
 
 
 def main(api_key=None):  # noqa: D103
